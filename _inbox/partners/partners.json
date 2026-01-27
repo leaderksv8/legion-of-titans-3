@@ -1,0 +1,12 @@
+[
+    { "name": "Rozetka", "img": "images/partners/rozetka.png", "url": "https://rozetka.com.ua" },
+    { "name": "Allo", "img": "images/partners/allo.png", "url": "https://allo.ua" },
+    { "name": "ATB", "img": "images/partners/atb.png", "url": "https://atbmarket.com" },
+    { "name": "Comfy", "img": "images/partners/comfi.png", "url": "https://comfy.ua" },
+    { "name": "Digital", "img": "images/partners/digital.png", "url": "#" },
+    { "name": "Hotline", "img": "images/partners/hotline.png", "url": "https://hotline.ua" },
+    { "name": "Kyivstar", "img": "images/partners/kyivstar.png", "url": "https://kyivstar.ua" },
+    { "name": "Lanet", "img": "images/partners/lanet.png", "url": "https://lanet.ua" },
+    { "name": "MV", "img": "images/partners/mv.png", "url": "#" },
+    { "name": "RNBO", "img": "images/partners/rnbo.png", "url": "https://rnbo.gov.ua" }
+]

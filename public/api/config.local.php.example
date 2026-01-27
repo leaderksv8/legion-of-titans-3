@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copy this file to `public/api/config.local.php` on the server and fill secrets.
+ * This example is safe to commit because it contains no real credentials.
+ */
+return [
+  'db' => [
+    'host' => 'localhost',
+    'name' => 'DB_NAME_HERE',
+    'user' => 'DB_USER_HERE',
+    'pass' => 'DB_PASS_HERE',
+    'charset' => 'utf8mb4',
+  ],
+  'admin' => [
+    // Prefer password_hash() output (bcrypt/argon2). Example:
+    // password_hash('your-strong-password', PASSWORD_DEFAULT)
+    'password_hash' => '',
+    // Fallback (not recommended): plaintext password
+    'password' => 'your-strong-password',
+    'session_minutes' => 30,
+  ],
+  'turnstile' => [
+    // Optional: Cloudflare Turnstile secret (server-side)
+    'secret' => '',
+  ],
+  'smtp' => [
+    'host' => 'mail.adm.tools',
+    'port' => 465,
+    'secure' => true, // true => implicit SSL (465); false => STARTTLS (587)
+    'user' => 'SMTP_USER_HERE',
+    'pass' => 'SMTP_PASS_HERE',
+    'to' => 'ngo@legion-of-titans.org',
+    'from' => 'noreply@legion-of-titans.org',
+    'from_name' => 'ГО "Легіон Титанів"',
+  ],
+];
+

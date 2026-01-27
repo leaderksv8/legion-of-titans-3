@@ -1,0 +1,113 @@
+import Container from "@/shared/ui/Container";
+import Modal from "@/shared/ui/Modal";
+import { founders, type Locale } from "@/content/site";
+import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { useEffect, useMemo, useState } from "react";
+
+type Founder = {
+  id: number;
+  name: string;
+  role: string;
+  photo: string;
+  bio: string;
+};
+
+function FounderCard({
+  person,
+  onOpen,
+}: {
+  person: Founder;
+  onOpen: (p: Founder) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(person)}
+      className="founder-card founder-hero"
+      aria-label={`Відкрити профіль ${person.name}`}
+    >
+      <button
+        type="button"
+        tabIndex={-1}
+        className="founder-photo founder-gallery-photo"
+        aria-hidden="true"
+      >
+        <img src={person.photo} alt={person.name} className="h-full w-full object-contain" loading="lazy" />
+      </button>
+      <div className="founder-caption">
+        <div className="text-sm font-semibold text-paper">{person.name}</div>
+        <div className="mt-1 text-[12px] uppercase tracking-luxe text-paper/70">{person.role}</div>
+      </div>
+    </button>
+  );
+}
+
+export default function Founders() {
+  const [locale, setLocale] = useState<Locale>("uk");
+  const activeId = useActiveSectionId();
+  const [active, setActive] = useState<Founder | null>(null);
+  useEffect(() => {
+    const saved = window.localStorage.getItem("locale") as Locale | null;
+    if (saved === "uk" || saved === "en") setLocale(saved);
+  }, []);
+  const t = founders[locale];
+  const people = useMemo<Founder[]>(() => t.people as Founder[], [t.people]);
+
+  return (
+    <section id="founders" className="py-14">
+      <Container>
+        <div>
+          <div>
+            <div
+              className={
+                activeId === "founders"
+                  ? "text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
+                  : "text-[12px] uppercase tracking-luxe text-ash"
+              }
+              data-active-anchor
+            >
+              {t.title}
+            </div>
+            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
+              {t.subtitle}
+            </h2>
+          </div>
+
+          <div className="mt-8">
+            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 justify-items-center">
+              {people.map((p) => (
+                <FounderCard key={p.id} person={p} onOpen={setActive} />
+              ))}
+            </div>
+                    </div>
+                  </div>
+
+        <Modal
+          open={!!active}
+          onClose={() => setActive(null)}
+          title={active?.name}
+          surfaceClassName="founder-modal rounded-2xl"
+        >
+          {active && (
+            <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain touch-pan-y hide-scrollbar">
+              <div className="founder-modal-body" style={{ backgroundImage: `url(${active.photo})` }}>
+                <button
+                  className="founder-modal-close"
+                  onClick={() => setActive(null)}
+                  type="button"
+                >
+                  ✕
+                </button>
+                <div className="founder-modal-content">
+                  <p className="text-sm md:text-[15px] leading-relaxed text-paper/90 whitespace-pre-line">
+                    {active.bio}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </Modal>
+      </Container>
+    </section>
+  );
+}

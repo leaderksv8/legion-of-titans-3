@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme: dark;
+  /* Replace next/font variables */
+  --font-display: "Cormorant Garamond";
+  --font-sans: "Inter";
+}
+html,body{ height:100%; }
+body{ margin:0; }
+
+::selection{ background: rgba(201,178,124,0.24); }
+
+/* Subtle grain */
+.grain{ position:relative; }
+.grain:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
+  opacity:.12;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion:no-preference){
+  html{ scroll-behavior:smooth; }
+}
+
+/* Bronze / premium accents */
+:root{
+  --bronze-50: 44 24% 96%;
+  --bronze-100: 40 28% 90%;
+  --bronze-200: 35 30% 78%;
+  --bronze-300: 33 34% 64%;
+  --bronze-400: 32 44% 52%;
+  --bronze-500: 31 56% 46%;
+  --bronze-600: 28 62% 40%;
+  --bronze-700: 26 60% 34%;
+  --bronze-800: 24 54% 28%;
+  --bronze-900: 22 46% 22%;
+}
+
+.bg-premium{
+  position: relative;
+  background:
+    radial-gradient(900px 540px at 20% 10%, hsla(var(--bronze-500) / 0.18), transparent 60%),
+    radial-gradient(720px 520px at 80% 30%, hsla(var(--bronze-400) / 0.12), transparent 60%),
+    radial-gradient(900px 680px at 40% 100%, hsla(var(--bronze-600) / 0.10), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.35)),
+    radial-gradient(1200px 800px at 50% 30%, rgba(255,255,255,0.04), transparent 60%),
+    #050607;
+}
+
+.bg-premium::before{
+  content:"";
+  pointer-events:none;
+  position:absolute;
+  inset:0;
+  opacity:.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.btn-bronze{
+  background: linear-gradient(180deg, hsla(var(--bronze-300) / .22), hsla(var(--bronze-900) / .08));
+  border: 1px solid hsla(var(--bronze-300) / .28);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 18px 40px rgba(0,0,0,.55),
+    0 0 70px hsla(var(--bronze-500) / .12);
+}
+.btn-bronze:hover{
+  border-color: hsla(var(--bronze-300) / .45);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 22px 60px rgba(0,0,0,.6),
+    0 0 90px hsla(var(--bronze-500) / .18);
+}
+.text-bronze{ color: hsla(var(--bronze-300) / .9); }
+.border-bronze{ border-color: hsla(var(--bronze-300) / .25); }
+
+/* Premium hover accents */
+.link-bronze{
+  position: relative;
+  color: rgba(255,255,255,.86);
+  text-decoration: none;
+}
+.link-bronze::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:100%;
+  height:1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, transparent, hsla(var(--bronze-300)/.85), transparent);
+  transition: transform 260ms ease, opacity 260ms ease;
+  opacity:.0;
+}
+.link-bronze:hover{
+  color: hsla(var(--bronze-200)/.98);
+  text-shadow: 0 0 24px hsla(var(--bronze-500)/.18);
+}
+.link-bronze:hover::after{
+  transform: scaleX(1);
+  opacity:1;
+}
+
+.btn-bronze, .btn-ghost, .btn-outline{
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, color 220ms ease, background 220ms ease;
+}
+.btn-bronze:hover, .btn-ghost:hover, .btn-outline:hover{
+  transform: translateY(-1px);
+}
+.btn-ghost:hover, .btn-outline:hover{
+  border-color: hsla(var(--bronze-300)/.35) !important;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.05) inset, 0 0 60px hsla(var(--bronze-500)/.10);
+  color: hsla(var(--bronze-200)/.98);
+}
+
+/* Stronger, clearly visible GOLD hover accents */
+:root{
+  --gold-100: 49 100% 95%;
+  --gold-200: 47 100% 85%;
+  --gold-300: 45 100% 72%;
+  --gold-400: 43 100% 62%;
+  --gold-500: 41 95% 54%;
+}
+
+.link-gold{
+  position: relative;
+  color: rgba(255,255,255,.90);
+  text-decoration: none;
+}
+.link-gold::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-3px;
+  width:100%;
+  height:2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, transparent, hsla(var(--gold-400)/1), hsla(var(--gold-300)/1), transparent);
+  transition: transform 220ms ease, filter 220ms ease, opacity 220ms ease;
+  opacity:0;
+  filter: drop-shadow(0 0 10px hsla(var(--gold-400)/.55));
+}
+.link-gold:hover{
+  color: hsla(var(--gold-300)/1);
+  text-shadow:
+    0 0 14px hsla(var(--gold-400)/.55),
+    0 0 40px hsla(var(--gold-400)/.25);
+}
+.link-gold:hover::after{
+  transform: scaleX(1);
+  opacity:1;
+}
+
+.btn-gold{
+  background: linear-gradient(180deg, hsla(var(--gold-400)/.30), hsla(var(--gold-500)/.08));
+  border: 1px solid hsla(var(--gold-300)/.65);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 20px 55px rgba(0,0,0,.55),
+    0 0 0 1px hsla(var(--gold-400)/.18),
+    0 0 120px hsla(var(--gold-400)/.22);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.btn-gold:hover{
+  transform: translateY(-1px);
+  border-color: hsla(var(--gold-300)/.9);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 26px 75px rgba(0,0,0,.62),
+    0 0 0 1px hsla(var(--gold-400)/.28),
+    0 0 160px hsla(var(--gold-400)/.34);
+}
+
+.card-gold:hover{
+  border-color: hsla(var(--gold-300)/.55) !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 30px 90px rgba(0,0,0,.62),
+    0 0 160px hsla(var(--gold-400)/.18);
+}
+
+/* Hide scrollbars while keeping scroll (useful for mobile modals) */
+.hide-scrollbar{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+
+/* Premium section focus flash */
+.section-flash{
+  position: relative;
+  outline: 1px solid rgba(191,153,77,0.55);
+  box-shadow: 0 0 0 1px rgba(191,153,77,0.15), 0 0 42px rgba(191,153,77,0.22);
+}
+

@@ -1,0 +1,13 @@
+
+# Local admin secrets & moderation storage
+.env.local
+.data/
+public/api/config.local.php
+public/api/_data/
+
+# Build artifacts
+dist/
+tsconfig.tsbuildinfo
+
+# Dependencies
+node_modules/

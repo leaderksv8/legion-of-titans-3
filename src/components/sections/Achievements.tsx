@@ -1,0 +1,67 @@
+import Container from "@/shared/ui/Container";
+import Divider from "@/shared/ui/Divider";
+import { achievements, type Locale } from "@/content/site";
+import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { useEffect, useState } from "react";
+
+export default function Achievements() {
+  const [locale, setLocale] = useState<Locale>("uk");
+  const activeId = useActiveSectionId();
+  useEffect(() => {
+    const saved = window.localStorage.getItem("locale") as Locale | null;
+    if (saved === "uk" || saved === "en") setLocale(saved);
+  }, []);
+  const t = achievements[locale];
+
+  return (
+    <section id="achievements" className="py-14">
+      <Container>
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <div
+              className={
+                activeId === "achievements"
+                  ? "text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
+                  : "text-[12px] uppercase tracking-luxe text-ash"
+              }
+              data-active-anchor
+            >
+              {t.title}
+            </div>
+            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
+              {t.subtitle}
+            </h2>
+            <p className="mt-4 text-ash leading-relaxed">
+              Дашборд оновлюється вашими реальними цифрами. Зараз — ваші приклади.
+            </p>
+          </div>
+
+          <div className="md:col-span-7 rounded-xl2 border border-hairline overflow-hidden bg-panel">
+            <div className="p-6 md:p-8">
+              <div className="achievements-marquee">
+                <div className="achievements-track" aria-label="Наші досягнення у цифрах">
+                  {t.stats.map((s) => (
+                    <div key={`a-${s.v}`} className="achievements-item">
+                      <div className="achievements-k">{s.k}</div>
+                      <div className="achievements-v">{s.v}</div>
+                    </div>
+                  ))}
+              {t.stats.map((s) => (
+                    <div key={`b-${s.v}`} className="achievements-item" aria-hidden="true">
+                      <div className="achievements-k">{s.k}</div>
+                      <div className="achievements-v">{s.v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <Divider />
+            <div className="p-6 md:p-8 text-sm text-ash">
+              <span className="text-paper">Принцип:</span> максимум прозорості без шкоди безпеці.
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}

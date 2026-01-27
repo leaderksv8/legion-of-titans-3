@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# --- API routes (PHP) ---
+RewriteRule ^api/contact/?$ api/contact.php [L,QSA]
+RewriteRule ^api/submit/?$ api/submit.php [L,QSA]
+RewriteRule ^api/public/?$ api/public.php [L,QSA]
+
+RewriteRule ^api/admin/login/?$ api/admin/login.php [L,QSA]
+RewriteRule ^api/admin/logout/?$ api/admin/logout.php [L,QSA]
+RewriteRule ^api/admin/items/?$ api/admin/items.php [L,QSA]
+RewriteRule ^api/admin/update/?$ api/admin/update.php [L,QSA]
+RewriteRule ^api/admin/smtp-status/?$ api/admin/smtp-status.php [L,QSA]
+
+# Block direct access to internal PHP includes / local config
+<FilesMatch "^(config\.local\.php|_config\.php|_util\.php|_smtp\.php)$">
+  Require all denied
+</FilesMatch>
+
+# --- SPA routing (index.html) ---
+# If it's an existing file or directory, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Don't rewrite /api/* (already handled above)
+RewriteCond %{REQUEST_URI} !^/api/
+
+# Otherwise, serve the SPA entry
+RewriteRule ^ index.html [L]
+

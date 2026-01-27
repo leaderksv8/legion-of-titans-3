@@ -1,0 +1,78 @@
+import Container from "@/shared/ui/Container";
+import ScrollLink from "@/shared/ui/ScrollLink";
+
+const CONTACTS = {
+  addressLines: ["08292, Київська обл., м. Буча,", "вул. Нове Шосе, 8б"],
+  phone: "+38 (097) 725-21-21",
+  email: "ngo@legion-of-titans.org",
+};
+
+const NAV_LINKS = [
+  // Absolute hash links so footer navigation works correctly from sub-routes (e.g., /thanks).
+  { href: "/#home", label: "Головна" },
+  { href: "/#activity", label: "Діяльність" },
+  { href: "/#events", label: "У центрі подій" },
+  { href: "/#team", label: "Наша команда" },
+];
+
+export default function Footer() {
+  return (
+    <footer className="mt-16 border-t border-hairline">
+      <div className="bg-black/25">
+        <Container>
+          <div className="py-10 md:py-12">
+            <div className="grid gap-8 md:gap-10 md:grid-cols-2 items-start">
+              {/* Contacts */}
+              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
+                <div className="text-[10px] uppercase tracking-luxe text-ash">Контакти</div>
+
+                <div className="mt-4 space-y-2 text-sm md:text-[15px] leading-relaxed text-paper">
+                  <div>
+                    <span className="block">{CONTACTS.addressLines[0]}</span>
+                    <span className="block">{CONTACTS.addressLines[1]}</span>
+                  </div>
+
+                  <a className="link-gold block w-fit break-words" href={`tel:${CONTACTS.phone.replace(/[^+\d]/g, "")}`}>
+                    {CONTACTS.phone}
+                  </a>
+
+                  <a className="link-gold block w-fit break-all" href={`mailto:${CONTACTS.email}`}>
+                    {CONTACTS.email}
+                  </a>
+                </div>
+              </div>
+
+              {/* Quick nav */}
+              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
+                <div className="text-[10px] uppercase tracking-luxe text-ash">Швидка навігація</div>
+
+                <ul className="mt-4 space-y-2 text-sm md:text-[15px]">
+                  {NAV_LINKS.map((item) => (
+                    <li key={item.href}>
+                      <ScrollLink className="link-gold" href={item.href}>
+                        {item.label}
+                      </ScrollLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-10 border-t border-hairline/70 pt-6 text-center text-[11px] tracking-[0.32em] text-ash">
+              © 2026 ГО «ЛЕГІОН ТИТАНІВ». ALL RIGHTS RESERVED.
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      <div className="footer-ticker">
+        <div className="footer-ticker-track">
+          <div className="footer-ticker-text">
+            Сайт працює у тестовому режимі. Зауваження та пропозиції просимо надсилати на e-mail: ngo@legion-of-titans.org
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
