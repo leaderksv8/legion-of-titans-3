@@ -620,7 +620,7 @@ export const founders = {
       role: "Head of NGO",
       photo: "images/founders/founder_1.webp",
       bio:
-        "Паустовський Дмитро Леонідович, 08.07.1979 р.н. — ветеран АТО/ООС та учасник повномасштабного вторгнення, має інвалідність, отриману внаслідок захисту Батьківщини. У 2022 році брав безпосередню участь у визволенні Київської області, зокрема міста Буча, яке стало одним із ключових символів спротиву російській агресії.\n\nГолова громадської організації «Легіон Титанів». Відповідає за стратегічний розвиток організації, формування її бачення та розбудову партнерств. Має досвід лідерства, стратегічного планування та ухвалення рішень у кризових умовах, спрямованих на розвиток ветеранських ініціатив, посилення інституційної спроможності організації та реалізацію суспільно важливих проєктів.",
+        "Dmytro Leonidovych Paustovskyi, born 08.07.1979 — ATO/JFO veteran and participant in the full-scale invasion, with a disability acquired while protecting the Motherland. In 2022, he directly participated in the liberation of Kyiv region, particularly the city of Bucha, which became one of the key symbols of resistance to Russian aggression.\n\nHead of the public organization \"Legion of Titans\". He is responsible for strategic development of the organization, forming its vision and building partnerships. He has experience in leadership, strategic planning, and decision-making in crisis conditions, aimed at developing veterans' initiatives, strengthening the institutional capacity of the organization, and implementing important public projects.",
     },
     {
       id: 2,
@@ -628,7 +628,7 @@ export const founders = {
       role: "Secretary / Operations Manager",
       photo: "images/founders/founder_2.webp",
       bio:
-        "Саліхов Сергій Ігорович, 19.10.1979 р.н. — ветеран АТО/ООС та учасник повномасштабного вторгнення, підполковник запасу. Отримав інвалідність унаслідок виконання бойових завдань із захисту територіальної цілісності України. У 2022 році брав участь у визволенні Київщини, зокрема Ірпеня, Бучі та Бородянки.\n\nСпівзасновник громадської організації «Легіон Титанів». Як секретар та координатор забезпечує стратегічне планування, внутрішню комунікацію та координацію команд і проєктів. Має досвід лідерства в умовах підвищеної відповідальності, ухвалення рішень у кризових ситуаціях та організації роботи колективів, спрямованих на захист прав ветеранів.",
+        "Serhii Ihorovych Salikhov, born 19.10.1979 — ATO/JFO veteran and participant in the full-scale invasion, reserve lieutenant colonel. He acquired a disability while performing combat missions to defend Ukraine's territorial integrity. In 2022, he participated in the liberation of Kyiv region, including Irpin, Bucha, and Borodianka.\n\nCo-founder of the public organization \"Legion of Titans\". As secretary and coordinator, he ensures strategic planning, internal communication, and coordination of teams and projects. He has experience in leadership under high responsibility, decision-making in crisis situations, and organizing team work aimed at protecting the rights of veterans.",
     },
     {
       id: 3,
@@ -636,7 +636,7 @@ export const founders = {
       role: "Board Member",
       photo: "images/founders/founder_3.webp",
       bio:
-        "Грицьків Анатолій Васильович, 30.05.1978 р.н. — Ветеран АТО/ООС та повномасштабного вторгнення, інвалід війни, сержант. В організації координує розвиток ветеранської інфраструктури, ветеранських спільнот, співпрацю з громадськими організаціями.",
+        "Anatolii Vasylovych Hrytskiv, born 30.05.1978 — ATO/JFO veteran and full-scale invasion participant, war invalid, sergeant. In the organization, he coordinates the development of veterans' infrastructure, veterans' communities, and cooperation with public organizations.",
     },
     {
       id: 4,
@@ -644,7 +644,7 @@ export const founders = {
       role: "Board Member",
       photo: "images/founders/founder_4.webp",
       bio:
-        "Ларін Олександр Сергійович, 26.05.1991 р.н. — Ветеран АТО/ООС, інвалід війни, солдат. В організації координує культурно-просвітницькою діяльністю, програми адаптації, групи взаємодопомоги та медичну підтримку ветеранів та їх родин.",
+        "Oleksandr Serhiyovych Larin, born 26.05.1991 — ATO/JFO veteran, war invalid, soldier. In the organization, he coordinates cultural and educational activities, adaptation programs, mutual aid groups, and medical support for veterans and their families.",
     },
     {
       id: 5,
@@ -652,7 +652,7 @@ export const founders = {
       role: "Board Member",
       photo: "images/founders/founder_5.webp",
       bio:
-        "Мельниченко Олексій Валерійович, 04.11.1999 р.н. — Ветеран війни, учасник бойових дій, інвалід війни, солдат. Має 8 років досвіду в медіа, маркетингу та управлінні командами. Працював із громадськими та соціальними проєктами. В організації координує інформаційну підтримку, комунікаційний та стратегічний напрям.",
+        "Oleksii Valeriyovych Melnychenko, born 04.11.1999 — War veteran, combat participant, war invalid, soldier. He has 8 years of experience in media, marketing, and team management. He has worked with public and social projects. In the organization, he coordinates information support, communications, and strategic direction.",
     },
   ]},
 };
