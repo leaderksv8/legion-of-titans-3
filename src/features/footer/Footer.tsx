@@ -9,17 +9,17 @@ const CONTACTS = {
   email: "ngo@legion-of-titans.org",
 };
 
-const NAV_LINKS = [
-  // Absolute hash links so footer navigation works correctly from sub-routes (e.g., /thanks).
-  { href: "/#home", label: "Головна" },
-  { href: "/#activity", label: "Діяльність" },
-  { href: "/#events", label: "У центрі подій" },
-  { href: "/#team", label: "Наша команда" },
-];
-
 export default function Footer() {
   const { locale } = useLocale();
   const t = branding[locale];
+  
+  const NAV_LINKS = [
+    // Absolute hash links so footer navigation works correctly from sub-routes (e.g., /thanks).
+    { href: "/#home", label: t.footerNavHome },
+    { href: "/#activity", label: t.footerNavActivity },
+    { href: "/#events", label: t.footerNavEvents },
+    { href: "/#team", label: t.footerNavTeam },
+  ];
   return (
     <footer className="mt-16 border-t border-hairline">
       <div className="bg-black/25">
@@ -28,7 +28,7 @@ export default function Footer() {
             <div className="grid gap-8 md:gap-10 md:grid-cols-2 items-start">
               {/* Contacts */}
               <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
-                <div className="text-[10px] uppercase tracking-luxe text-ash">Контакти</div>
+                <div className="text-[10px] uppercase tracking-luxe text-ash">{t.footerContactsTitle}</div>
 
                 <div className="mt-4 space-y-2 text-sm md:text-[15px] leading-relaxed text-paper">
                   <div>
@@ -48,7 +48,7 @@ export default function Footer() {
 
               {/* Quick nav */}
               <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
-                <div className="text-[10px] uppercase tracking-luxe text-ash">Швидка навігація</div>
+                <div className="text-[10px] uppercase tracking-luxe text-ash">{t.footerNavTitle}</div>
 
                 <ul className="mt-4 space-y-2 text-sm md:text-[15px]">
                   {NAV_LINKS.map((item) => (
