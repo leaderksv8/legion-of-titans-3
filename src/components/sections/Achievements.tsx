@@ -1,16 +1,12 @@
 import Container from "@/shared/ui/Container";
 import Divider from "@/shared/ui/Divider";
-import { achievements, type Locale } from "@/content/site";
+import { achievements } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
-import { useEffect, useState } from "react";
+import { useLocale } from "@/shared/lib/localeContext";
 
 export default function Achievements() {
-  const [locale, setLocale] = useState<Locale>("uk");
+  const { locale } = useLocale();
   const activeId = useActiveSectionId();
-  useEffect(() => {
-    const saved = window.localStorage.getItem("locale") as Locale | null;
-    if (saved === "uk" || saved === "en") setLocale(saved);
-  }, []);
   const t = achievements[locale];
 
   return (

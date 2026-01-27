@@ -1,7 +1,8 @@
 import Container from "@/shared/ui/Container";
-import { partners, type Locale } from "@/content/site";
+import { partners } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
-import { useEffect, useMemo, useState } from "react";
+import { useLocale } from "@/shared/lib/localeContext";
+import { useMemo } from "react";
 
 type Partner = {
   name: string;
@@ -16,12 +17,8 @@ function sectionTitleClass(active: boolean) {
 }
 
 export default function Partners() {
-  const [locale, setLocale] = useState<Locale>("uk");
+  const { locale } = useLocale();
   const activeId = useActiveSectionId();
-  useEffect(() => {
-    const saved = window.localStorage.getItem("locale") as Locale | null;
-    if (saved === "uk" || saved === "en") setLocale(saved);
-  }, []);
   const t = partners[locale];
   const items = useMemo(() => t.items as Partner[], [t.items]);
   const isActive = activeId === "partners";

@@ -1,7 +1,8 @@
 import Container from "@/shared/ui/Container";
 import Modal from "@/shared/ui/Modal";
-import { team, type Locale } from "@/content/site";
+import { team } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useState } from "react";
 
 type Person = {
@@ -36,14 +37,10 @@ function PersonCard({
 }
 
 export default function Team() {
-  const [locale, setLocale] = useState<Locale>("uk");
+  const { locale } = useLocale();
   const activeId = useActiveSectionId();
   const [active, setActive] = useState<Person | null>(null);
   const [remotePeople, setRemotePeople] = useState<Person[] | null>(null);
-  useEffect(() => {
-    const saved = window.localStorage.getItem("locale") as Locale | null;
-    if (saved === "uk" || saved === "en") setLocale(saved);
-  }, []);
   useEffect(() => {
     let cancelled = false;
     fetch("/api/content/team.php")

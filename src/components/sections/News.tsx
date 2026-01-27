@@ -1,19 +1,15 @@
 import Container from "@/shared/ui/Container";
 import Divider from "@/shared/ui/Divider";
-import { news, type Locale } from "@/content/site";
+import { news } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useState } from "react";
 
 export default function News() {
-  const [locale, setLocale] = useState<Locale>("uk");
+  const { locale } = useLocale();
   const activeId = useActiveSectionId();
   const [liveItems, setLiveItems] = useState<typeof t.top>([]);
   const [goItems, setGoItems] = useState<typeof t.manual | null>(null);
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("locale") as Locale | null;
-    if (saved === "uk" || saved === "en") setLocale(saved);
-  }, []);
 
   useEffect(() => {
     let cancelled = false;

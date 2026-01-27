@@ -3,13 +3,12 @@ import Divider from "@/shared/ui/Divider";
 import LocaleToggle from "@/shared/ui/LocaleToggle";
 import Burger from "@/shared/ui/Burger";
 import { MotionDiv, fadeUp } from "@/shared/ui/motion";
-import { nav, branding } from "@/content/site";
+import { nav, type Locale } from "@/content/site";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ScrollLink from "@/shared/ui/ScrollLink";
 import { useActiveSection } from "@/shared/lib/useActiveSection";
 import { useContactModal } from "@/features/contact/ContactModalContext";
-import { useLocale } from "@/shared/lib/localeContext";
 import GuideDock from "@/features/guide/GuideDock";
 
 function linkClass(isActive: boolean) {
@@ -20,13 +19,12 @@ function linkClass(isActive: boolean) {
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const { locale, setLocale } = useLocale();
+  const [locale, setLocale] = useState<Locale>("uk");
   const [open, setOpen] = useState(false);
   const { openContact } = useContactModal();
   const location = useLocation();
   const isHome = location.pathname === "/";
   const links = nav[locale];
-  const branding_t = branding[locale];
   const { activeId } = useActiveSection(links.map((l) => l.href), { headerOffsetPx: 80 });
   const hasActive = activeId.length > 0;
 
@@ -62,11 +60,11 @@ export default function Header() {
 
               <span className="min-w-0 text-white">
                 <span className="hidden max-[420px]:block leading-tight">
-                  <span className="block text-[10px] tracking-[0.22em] uppercase text-ash/80">{branding_t.headerOrg}</span>
-                  <span className="block text-[13px] font-semibold tracking-[0.10em]">{branding_t.headerName}</span>
+                  <span className="block text-[10px] tracking-[0.22em] uppercase text-ash/80">ГО</span>
+                  <span className="block text-[13px] font-semibold tracking-[0.10em]">«Легіон Титанів»</span>
                 </span>
                 <span className="block max-[420px]:hidden text-sm md:text-base font-semibold tracking-[0.10em] whitespace-nowrap truncate">
-                  {branding_t.headerOrg} {branding_t.headerName}
+                  ГО «Легіон Титанів»
                 </span>
               </span>
             </a>
@@ -141,4 +139,3 @@ export default function Header() {
     </>
   );
 }
-

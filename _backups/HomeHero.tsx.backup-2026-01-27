@@ -1,13 +1,26 @@
 import Container from "@/shared/ui/Container";
 import Badge from "@/shared/ui/Badge";
 import { MotionDiv, MotionH1, MotionP, stagger, fadeUp } from "@/shared/ui/motion";
-import { hero } from "@/content/site";
+import { hero, type Locale } from "@/content/site";
 import { useContactModal } from "@/features/contact/ContactModalContext";
-import { useLocale } from "@/shared/lib/localeContext";
+import { useEffect, useState } from "react";
 
 export default function HomeHero() {
-  const { locale } = useLocale();
+  // read locale from localStorage if set by toggle later (simple)
+  const [locale, setLocale] = useState<Locale>("uk");
   const { openContact } = useContactModal();
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("locale") as Locale | null;
+    if (saved === "uk" || saved === "en") setLocale(saved);
+    const onStorage = () => {
+      const s = window.localStorage.getItem("locale") as Locale | null;
+      if (s === "uk" || s === "en") setLocale(s);
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
   const t = hero[locale];
 
   return (

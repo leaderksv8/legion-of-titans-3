@@ -1,7 +1,7 @@
 import Container from "@/shared/ui/Container";
-import { activity } from "@/content/site";
+import { activity, type Locale } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
-import { useLocale } from "@/shared/lib/localeContext";
+import { useEffect, useState } from "react";
 
 function Card({ title, desc }: { title: string; desc: string }) {
   return (
@@ -14,8 +14,12 @@ function Card({ title, desc }: { title: string; desc: string }) {
 }
 
 export default function Activity() {
-  const { locale } = useLocale();
+  const [locale, setLocale] = useState<Locale>("uk");
   const activeId = useActiveSectionId();
+  useEffect(() => {
+    const saved = window.localStorage.getItem("locale") as Locale | null;
+    if (saved === "uk" || saved === "en") setLocale(saved);
+  }, []);
   const t = activity[locale];
 
   return (

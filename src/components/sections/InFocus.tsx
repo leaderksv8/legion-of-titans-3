@@ -1,7 +1,8 @@
 import Container from "@/shared/ui/Container";
 import Modal from "@/shared/ui/Modal";
-import { events, type Locale } from "@/content/site";
+import { events, infocus } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 type EventItem = {
@@ -49,7 +50,7 @@ function Card({ e, onOpen }: { e: EventItem; onOpen: (event: EventItem) => void 
 }
 
 export default function InFocus() {
-  const [locale, setLocale] = useState<Locale>("uk");
+  const { locale } = useLocale();
   const [active, setActive] = useState<EventItem | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -59,22 +60,22 @@ export default function InFocus() {
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
   useEffect(() => {
-    const saved = window.localStorage.getItem("locale") as Locale | null;
-    if (saved === "uk" || saved === "en") setLocale(saved);
-  }, []);
-  useEffect(() => {
     let isMounted = true;
     fetch("/events/events.json")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;
+        console.log("Events JSON loaded:", data);
         setEventsData(data as EventsPayload);
       })
-      .catch(() => undefined);
+      .catch((err) => {
+        console.error("Error loading events JSON:", err);
+      });
     return () => {
       isMounted = false;
     };
   }, []);
+  const inFocusT = infocus[locale];
   const t = (eventsData?.[locale] ?? events[locale]) as EventsPayload["uk"];
   const items = useMemo(() => t.items as EventItem[], [t.items]);
   const recentItems = items.slice(0, 3);
@@ -107,13 +108,13 @@ export default function InFocus() {
               }
               data-active-anchor
             >
-              {t.title}
+              {inFocusT.title}
             </div>
             <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
-              {t.subtitle}
+              {inFocusT.subtitle}
             </h2>
             <p className="mt-4 text-ash leading-relaxed max-w-[72ch]">
-              {t.note}
+              {inFocusT.note}
             </p>
           </div>
           {archiveItems.length > 0 && (
@@ -122,7 +123,7 @@ export default function InFocus() {
               onClick={() => setShowArchive((prev) => !prev)}
               className="hidden md:inline-flex text-[12px] uppercase tracking-luxe text-ash hover:text-paper transition-colors"
             >
-              {showArchive ? "Приховати архів" : "Архів подій"} →
+              {showArchive ? inFocusT.hideArchiveLabel : inFocusT.archiveLabel} →
             </button>
           )}
         </div>
@@ -159,7 +160,7 @@ export default function InFocus() {
               <div className="p-6 md:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-[12px] uppercase tracking-luxe text-ash">{t.title}</div>
+                    <div className="text-[12px] uppercase tracking-luxe text-ash">{inFocusT.title}</div>
                     <div className="mt-2 text-xl md:text-2xl font-semibold">{active.title}</div>
                     <div className="mt-1 text-sm text-ash uppercase tracking-luxe">{active.date}</div>
                   </div>

@@ -6,17 +6,13 @@ import "@/styles/globals.css";
 
 import { AppRouter } from "@/spa/router";
 import { ContactModalProvider } from "@/features/contact/ContactModalContext";
-import { LocaleProvider } from "@/shared/lib/localeContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <HelmetProvider>
-      <LocaleProvider>
-        <ContactModalProvider>
-          <AppRouter />
-        </ContactModalProvider>
-      </LocaleProvider>
+      <ContactModalProvider>
+        <AppRouter />
+      </ContactModalProvider>
     </HelmetProvider>
   </React.StrictMode>
 );
-

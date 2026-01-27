@@ -619,3 +619,35 @@ export const contact = {
     emailTo: "ngo@legion-of-titans.org",
   },
 };
+
+export const branding = {
+  uk: {
+    headerOrg: "ГО",
+    headerName: "«Легіон Титанів»",
+    footerTestMode: "Сайт працює у тестовому режимі. Зауваження та пропозиції просимо надсилати на e-mail: ngo@legion-of-titans.org",
+    footerCopyright: "© 2026 ГО «ЛЕГІОН ТИТАНІВ». ВСІ ПРАВА ЗАХИЩЕНІ.",
+  },
+  en: {
+    headerOrg: "NGO",
+    headerName: "«Legion of Titans»",
+    footerTestMode: "Website is in test mode. Please send feedback and suggestions to: ngo@legion-of-titans.org",
+    footerCopyright: "© 2026 NGO «LEGION OF TITANS». ALL RIGHTS RESERVED.",
+  },
+};
+
+export const infocus = {
+  uk: {
+    title: "У центрі подій",
+    subtitle: "Там, де присутність має значення",
+    note: "Показуємо ключові події та партнерські ініціативи за участі ГО «Легіон Титанів».",
+    archiveLabel: "Архів подій",
+    hideArchiveLabel: "Приховати архів",
+  },
+  en: {
+    title: "In focus",
+    subtitle: "Where presence matters",
+    note: "Key events and partner initiatives with the Legion of Titans.",
+    archiveLabel: "Events archive",
+    hideArchiveLabel: "Hide archive",
+  },
+};

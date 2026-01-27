@@ -1,0 +1,17 @@
+export type Locale = "uk" | "en";
+
+export const nav = {
+  uk: [
+    // Absolute hash links so navigation works correctly from sub-routes (e.g., /thanks, /stories).
+    { label: "Діяльність", href: "/#activity" },
+    { label: "Наша команда", href: "/#team" },
+    { label: "У центрі подій", href: "/#events" },
+    { label: "Звʼязок з нами", href: "/#contact" },
+  ],
+  en: [
+    { label: "Activities", href: "/#activity" },
+    { label: "Team", href: "/#team" },
+    { label: "In focus", href: "/#events" },
+    { label: "Contacts", href: "/#contact" },
+  ],
+};
