@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import SEOHead from "@/features/seo/SEOHead";
 import Header from "@/features/header/Header";
 import Footer from "@/features/footer/Footer";
 import Container from "@/shared/ui/Container";
@@ -16,13 +17,7 @@ export default function GuidePage() {
 
   return (
     <>
-      <Helmet>
-        <title>Довідник — ГО «ЛЕГІОН ТИТАНІВ»</title>
-        <meta name="description" content="Довідник для ветеранів: маршрути, пільги, виплати та контакти." />
-        <meta property="og:title" content="Довідник — ГО «ЛЕГІОН ТИТАНІВ»" />
-        <meta property="og:description" content="Короткі маршрути та повна бібліотека дій." />
-        <link rel="canonical" href="/guide" />
-      </Helmet>
+      <SEOHead />
 
       <main className="grain min-h-screen">
         <Header />

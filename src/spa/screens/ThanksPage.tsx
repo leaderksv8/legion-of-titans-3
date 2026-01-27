@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
+import SEOHead from "@/features/seo/SEOHead";
 import Header from "@/features/header/Header";
 import Footer from "@/features/footer/Footer";
 import Container from "@/shared/ui/Container";
@@ -69,13 +70,7 @@ export default function ThanksPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Подяки від ветеранів — ГО «ЛЕГІОН ТИТАНІВ»</title>
-        <meta name="description" content="Архів опублікованих подяк від ветеранів після модерації." />
-        <meta property="og:title" content="Подяки від ветеранів — ГО «ЛЕГІОН ТИТАНІВ»" />
-        <meta property="og:description" content="Архів опублікованих подяк від ветеранів після модерації." />
-        <link rel="canonical" href="/thanks" />
-      </Helmet>
+      <SEOHead />
 
       <main className="grain min-h-screen">
         <Header />

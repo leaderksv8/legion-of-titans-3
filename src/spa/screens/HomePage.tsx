@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
+import SEOHead from "@/features/seo/SEOHead";
 import Header from "@/features/header/Header";
 import Footer from "@/features/footer/Footer";
 
@@ -38,13 +39,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Helmet>
-        <title>ГО «ЛЕГІОН ТИТАНІВ»</title>
-        <meta name="description" content="Ветерани війни з обмеженими можливостями Бучанського району." />
-        <meta property="og:title" content="ГО «ЛЕГІОН ТИТАНІВ»" />
-        <meta property="og:description" content="Ветерани війни з обмеженими можливостями Бучанського району." />
-        <link rel="canonical" href="/" />
-      </Helmet>
+      <SEOHead />
 
       <main className="grain min-h-screen">
         <Header />

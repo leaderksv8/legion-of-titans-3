@@ -664,6 +664,29 @@ export const contact = {
     quick: ["Головна","Діяльність","У центрі подій","Наша команда","Контакти"],
     note: "Ми відповідаємо на звернення через цю форму або по email.",
     emailTo: "ngo@legion-of-titans.org",
+    form: {
+      name: "Імʼя",
+      namePlaceholder: "Ваше імʼя",
+      email: "Email",
+      emailPlaceholder: "name@example.com",
+      subject: "Тема",
+      subjectPlaceholder: "Тема повідомлення",
+      message: "Повідомлення",
+      messagePlaceholder: "Напишіть ваше повідомлення...",
+      consent: "Надсилаючи це повідомлення, ви надаєте згоду на обробку персональних даних, зазначених у повідомленні, виключно з метою зворотного звʼязку.",
+      submit: "Надіслати",
+      sending: "Відправляємо…",
+      sent: "Повідомлення надіслано. Дякуємо!",
+      error: "Не вдалося надіслати. Спробуйте ще раз трохи пізніше.",
+      validation: {
+        nameRequired: "Імʼя обов'язкове",
+        emailRequired: "Email обов'язковий",
+        emailInvalid: "Введіть коректну email адресу",
+        messageRequired: "Повідомлення обов'язкове",
+        messageTooShort: "Повідомлення занадто коротке (мінімум 10 символів)",
+        consentRequired: "Потрібно підтвердити згоду на обробку даних",
+      }
+    }
   },
   en: {
     title: "Contacts",
@@ -671,6 +694,29 @@ export const contact = {
     quick: ["Home","Activities","In focus","Team","Contacts"],
     note: "We reply via this form or by email.",
     emailTo: "ngo@legion-of-titans.org",
+    form: {
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "name@example.com",
+      subject: "Subject",
+      subjectPlaceholder: "Message subject",
+      message: "Message",
+      messagePlaceholder: "Write your message...",
+      consent: "By sending this message, you consent to the processing of personal data provided in the message solely for the purpose of responding.",
+      submit: "Send",
+      sending: "Sending…",
+      sent: "Message sent. Thank you!",
+      error: "Failed to send. Please try again later.",
+      validation: {
+        nameRequired: "Name is required",
+        emailRequired: "Email is required",
+        emailInvalid: "Please enter a valid email address",
+        messageRequired: "Message is required",
+        messageTooShort: "Message is too short (minimum 10 characters)",
+        consentRequired: "You must consent to data processing",
+      }
+    }
   },
 };
 
