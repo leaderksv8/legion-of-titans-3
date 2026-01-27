@@ -126,12 +126,12 @@ export default function Heroes() {
       const code = String(e?.message || "");
       setErrorText(
         code === "NO_CONSENT"
-          ? "Потрібно підтвердити згоду на обробку даних."
+          ? t.modal.noConsent
           : code === "TOO_SHORT"
-          ? "Текст занадто короткий."
+          ? t.modal.tooShort
           : code === "RATE_LIMIT"
-          ? "Занадто багато спроб. Спробуйте пізніше."
-          : "Не вдалося надіслати. Спробуйте ще раз."
+          ? t.modal.rateLimit
+          : t.modal.error
       );
     }
   }
@@ -239,19 +239,19 @@ export default function Heroes() {
                 <div className="mt-5 grid gap-4">
                   <div className="grid gap-2">
                     <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      Ім’я / позивний (необов’язково)
+                      {t.modal.nameLabel}
                     </label>
                     <input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="h-11 rounded-xl border border-hairline bg-black/20 px-4 text-paper outline-none focus:border-gold/60"
-                      placeholder="Наприклад: Андрій, Титан…"
+                      placeholder={t.modal.namePlaceholder}
                     />
                   </div>
 
                   <div className="grid gap-2">
                     <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      Email (необов’язково)
+                      {t.modal.emailLabel}
                     </label>
                     <input
                       value={email}
@@ -274,13 +274,13 @@ export default function Heroes() {
 
                   <div className="grid gap-2">
                     <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      Текст (обов’язково)
+                      {t.modal.messageLabel}
                     </label>
                     <textarea
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       className="min-h-[140px] rounded-xl border border-hairline bg-black/20 px-4 py-3 text-paper outline-none focus:border-gold/60 resize-y"
-                      placeholder="Напишіть вашу подяку…"
+                      placeholder={t.modal.messagePlaceholder}
                     />
                   </div>
 
@@ -292,17 +292,13 @@ export default function Heroes() {
                       className="mt-1 h-4 w-4 accent-[rgba(201,178,124,0.9)]"
                     />
                     <span>
-                      Я надаю згоду ГО «ЛЕГІОН ТИТАНІВ» на обробку персональних даних з метою розгляду мого звернення та
-                      (за потреби) публікації відгуку/подяки на сайті відповідно до Політики конфіденційності. Ми не
-                      збираємо прихованих даних — ви передаєте лише те, що вводите у форму. Просимо не вказувати
-                      надлишкові персональні дані (паспорт, ІПН, банківські реквізити тощо). Згоду можна відкликати,
-                      звернувшись на ngo@legion-of-titans.org.
+                      {t.modal.consentText}
                     </span>
                   </label>
 
                   {status === "sent" ? (
                     <div className="rounded-xl border border-hairline bg-black/20 p-4 text-paper">
-                      Дякуємо. Повідомлення надіслано на модерацію.
+                      {t.modal.sent}
                     </div>
                   ) : (
                     <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -311,7 +307,7 @@ export default function Heroes() {
                         onClick={() => setOpen(false)}
                         type="button"
                       >
-                        Скасувати
+                        {t.modal.cancel}
                       </button>
                       <button
                         className="h-11 rounded-xl px-5 text-[12px] uppercase tracking-luxe bg-gold/15 border border-gold/35 text-paper hover:bg-gold/25 transition-colors disabled:opacity-50"
@@ -319,7 +315,7 @@ export default function Heroes() {
                         disabled={status === "sending"}
                         type="button"
                       >
-                        {status === "sending" ? "Надсилаємо…" : "Надіслати"}
+                        {status === "sending" ? t.modal.sending : t.modal.send}
                       </button>
                     </div>
                   )}
@@ -329,7 +325,7 @@ export default function Heroes() {
                   )}
 
                   <div className="text-[12px] text-ash">
-                    Публікація відбувається лише після модерації.
+                    {t.modal.footerNote}
                   </div>
                 </div>
             </div>
