@@ -4,7 +4,6 @@ import { useLocale } from "@/shared/lib/localeContext";
 import { branding } from "@/content/site";
 
 const CONTACTS = {
-  addressLines: ["08292, Київська обл., м. Буча,", "вул. Нове Шосе, 8б"],
   phone: "+38 (097) 725-21-21",
   email: "ngo@legion-of-titans.org",
 };
@@ -32,8 +31,8 @@ export default function Footer() {
 
                 <div className="mt-4 space-y-2 text-sm md:text-[15px] leading-relaxed text-paper">
                   <div>
-                    <span className="block">{CONTACTS.addressLines[0]}</span>
-                    <span className="block">{CONTACTS.addressLines[1]}</span>
+                    <span className="block">{t.footerAddressLine1}</span>
+                    <span className="block">{t.footerAddressLine2}</span>
                   </div>
 
                   <a className="link-gold block w-fit break-words" href={`tel:${CONTACTS.phone.replace(/[^+\d]/g, "")}`}>

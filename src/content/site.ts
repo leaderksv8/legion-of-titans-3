@@ -686,6 +686,8 @@ export const branding = {
     footerNavActivity: "Діяльність",
     footerNavEvents: "У центрі подій",
     footerNavTeam: "Наша команда",
+    footerAddressLine1: "08292, Київська обл., м. Буча,",
+    footerAddressLine2: "вул. Нове Шосе, 8б",
   },
   en: {
     headerOrg: "NGO",
@@ -698,6 +700,8 @@ export const branding = {
     footerNavActivity: "Activity",
     footerNavEvents: "In focus",
     footerNavTeam: "Our team",
+    footerAddressLine1: "08292, Kyiv region, Bucha,",
+    footerAddressLine2: "Nove Shose St., 8b",
   },
 };
 
