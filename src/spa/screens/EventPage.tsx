@@ -1,6 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import Container from "@/shared/ui/Container";
+import { withBase } from "@/shared/lib/paths";
 
 type EventItem = {
   id: number;
@@ -19,7 +20,7 @@ type EventsPayload = {
 };
 
 function buildImages(folder: string, total: number) {
-  return Array.from({ length: total }, (_, i) => `/events/${folder}/${i + 1}.webp`);
+  return Array.from({ length: total }, (_, i) => withBase(`/events/${folder}/${i + 1}.webp`));
 }
 
 let scrollLockCount = 0;
@@ -42,6 +43,7 @@ function unlockBodyScroll() {
 
 export default function EventPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [eventsData, setEventsData] = useState<EventsPayload | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -72,7 +74,7 @@ export default function EventPage() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/events/events.json")
+    fetch(withBase("/events/events.json"))
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;
@@ -143,7 +145,7 @@ export default function EventPage() {
 
         {/* Main image */}
         <div className="mb-8 rounded-2xl border border-hairline bg-white/5 overflow-hidden">
-          <img src={event.cover} alt={event.title} className="w-full h-auto object-cover max-h-96" />
+          <img src={withBase(event.cover)} alt={event.title} className="w-full h-auto object-cover max-h-96" />
         </div>
 
         {/* Description */}

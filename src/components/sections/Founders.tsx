@@ -1,6 +1,7 @@
 import Container from "@/shared/ui/Container";
 import { Link } from "react-router-dom";
 import { founders } from "@/content/site";
+import { withBase } from "@/shared/lib/paths";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useMemo } from "react";
@@ -48,7 +49,7 @@ function FounderCard({
         <div className="founder-card group">
           <div className="founder-photo">
             <img 
-              src={person.photo} 
+              src={withBase(person.photo)} 
               alt={person.name} 
               className="w-full h-full object-cover" 
               loading="lazy" 

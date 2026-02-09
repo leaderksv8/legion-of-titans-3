@@ -1,6 +1,7 @@
 import Container from "@/shared/ui/Container";
 import { Link } from "react-router-dom";
 import { team } from "@/content/site";
+import { withBase } from "@/shared/lib/paths";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useState } from "react";
@@ -30,7 +31,7 @@ function PersonCard({ person }: { person: Person }) {
       className="rounded-3xl border border-hairline bg-panel p-5 sm:p-6 md:p-8 card-gold transition-colors text-center hover:border-gold/50 hover:shadow-lg"
     >
       <div className="mx-auto h-56 w-56 sm:h-48 sm:w-48 md:h-32 md:w-32 rounded-full border border-hairline bg-white/5 overflow-hidden block">
-        <img src={person.photo} alt={person.name} className="h-full w-full object-cover hover:scale-110 transition" loading="lazy" />
+        <img src={withBase(person.photo)} alt={person.name} className="h-full w-full object-cover hover:scale-110 transition" loading="lazy" />
       </div>
       <div className="mt-5 sm:mt-4 text-[16px] sm:text-[15px] md:text-sm font-semibold">{person.name}</div>
       <div className="mt-2 sm:mt-1 text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash">{person.role}</div>

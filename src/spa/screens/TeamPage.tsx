@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Container from "@/shared/ui/Container";
 import { team } from "@/content/site";
 import { useLocale } from "@/shared/lib/localeContext";
+import { withBase } from "@/shared/lib/paths";
 
 type Person = {
   id: number;
@@ -82,7 +83,7 @@ export default function TeamPage() {
           <div className="lg:col-span-1 flex items-start justify-center">
             <div className="w-full max-w-xs">
               <img
-                src={person.photo}
+                src={withBase(person.photo)}
                 alt={person.name}
                 className="w-full h-auto object-cover rounded-2xl border border-hairline"
               />

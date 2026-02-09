@@ -1,6 +1,7 @@
 import Container from "@/shared/ui/Container";
 import { partners } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
+import { withBase } from "@/shared/lib/paths";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useMemo } from "react";
 
@@ -52,11 +53,11 @@ export default function Partners() {
                   className="partner-pill"
                   aria-label={p.name}
                 >
-                  <img src={p.logo} alt={p.name} loading="lazy" />
+                  <img src={withBase(p.logo)} alt={p.name} loading="lazy" />
                 </a>
               ) : (
                 <div key={`a-${p.name}`} className="partner-pill" aria-label={p.name}>
-                  <img src={p.logo} alt={p.name} loading="lazy" />
+                  <img src={withBase(p.logo)} alt={p.name} loading="lazy" />
                 </div>
               )
             ))}
@@ -71,11 +72,11 @@ export default function Partners() {
                   aria-hidden="true"
                   tabIndex={-1}
                 >
-                  <img src={p.logo} alt="" loading="lazy" />
+                  <img src={withBase(p.logo)} alt="" loading="lazy" />
                 </a>
               ) : (
                 <div key={`b-${p.name}`} className="partner-pill" aria-hidden="true">
-                  <img src={p.logo} alt="" loading="lazy" />
+                  <img src={withBase(p.logo)} alt="" loading="lazy" />
             </div>
               )
           ))}

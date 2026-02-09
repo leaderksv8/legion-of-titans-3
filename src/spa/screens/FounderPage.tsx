@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Container from "@/shared/ui/Container";
 import { founders } from "@/content/site";
 import { useLocale } from "@/shared/lib/localeContext";
+import { withBase } from "@/shared/lib/paths";
 import { motion } from "framer-motion";
 
 type Founder = {
@@ -67,7 +68,7 @@ export default function FounderPage() {
         {/* Фото - як фон але не перекриває контент */}
         <div className="absolute inset-0">
           <img
-            src={founder.photo}
+            src={withBase(founder.photo)}
             alt={founder.name}
             className="w-full h-full object-cover"
           />

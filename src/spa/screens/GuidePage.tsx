@@ -6,6 +6,7 @@ import Container from "@/shared/ui/Container";
 import { guide } from "@/content/guide";
 import { useEffect, useState } from "react";
 import { type Locale } from "@/content/site";
+import { withBase } from "@/shared/lib/paths";
 
 export default function GuidePage() {
   const [locale, setLocale] = useState<Locale>("uk");
@@ -44,7 +45,7 @@ export default function GuidePage() {
               
               <div className="flex items-center justify-center">
                 <img
-                  src="/images/logo/logo%20white.svg?v=2"
+                  src={withBase("/images/logo/logo%20white.svg?v=2")}
                   alt="ГО «Легіон Титанів»"
                   className="h-56 w-56 md:h-64 md:w-64 lg:h-72 lg:w-72 object-contain drop-shadow-[0_12px_40px_rgba(201,178,124,0.45)]"
                   loading="eager"

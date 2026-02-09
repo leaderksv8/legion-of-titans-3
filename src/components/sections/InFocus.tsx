@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { events, infocus } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
+import { withBase } from "@/shared/lib/paths";
 import { useEffect, useMemo, useState } from "react";
 
 type EventItem = {
@@ -31,7 +32,7 @@ function rememberScroll() {
 }
 
 function buildImages(folder: string, total: number) {
-  return Array.from({ length: total }, (_, i) => `/events/${folder}/${i + 1}.webp`);
+  return Array.from({ length: total }, (_, i) => withBase(`/events/${folder}/${i + 1}.webp`));
 }
 
 function Card({ e }: { e: EventItem }) {
@@ -42,7 +43,7 @@ function Card({ e }: { e: EventItem }) {
       className="group rounded-xl2 border border-hairline bg-panel p-6 md:p-7 card-gold transition-colors text-left hover:border-gold/50"
     >
       <div className="h-36 rounded-xl2 border border-hairline bg-white/5 overflow-hidden">
-        <img src={e.cover} alt={e.title} className="h-full w-full object-cover group-hover:scale-105 transition" loading="lazy" />
+        <img src={withBase(e.cover)} alt={e.title} className="h-full w-full object-cover group-hover:scale-105 transition" loading="lazy" />
       </div>
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
@@ -65,7 +66,7 @@ export default function InFocus() {
   const activeId = useActiveSectionId();
   useEffect(() => {
     let isMounted = true;
-    fetch("/events/events.json")
+    fetch(withBase("/events/events.json"))
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (!isMounted || !data) return;

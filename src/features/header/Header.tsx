@@ -11,6 +11,7 @@ import { useActiveSection } from "@/shared/lib/useActiveSection";
 import { useContactModal } from "@/features/contact/ContactModalContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import GuideDock from "@/features/guide/GuideDock";
+import { withBase } from "@/shared/lib/paths";
 
 function linkClass(isActive: boolean) {
   return isActive
@@ -53,7 +54,7 @@ export default function Header() {
             <a href="/#home" className="inline-flex items-center gap-2 sm:gap-3 logo-link min-w-0 flex-1 sm:flex-none">
               <span className="flex h-14 sm:h-16 w-14 sm:w-16 items-center justify-center overflow-visible logo-wrap flex-shrink-0">
                 <img
-                  src="/images/logo/logo%20white.svg?v=2"
+                  src={withBase("/images/logo/logo%20white.svg?v=2")}
                   alt="ГО «Легіон Титанів»"
                   className="block h-14 sm:h-16 w-14 sm:w-16 object-contain origin-top scale-[2.0] logo-glow"
                   loading="eager"
