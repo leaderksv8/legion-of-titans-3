@@ -1,1 +1,0 @@
-export { ModerationTable } from "./ModerationTable";
