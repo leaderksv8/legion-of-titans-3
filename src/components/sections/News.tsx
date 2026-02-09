@@ -4,6 +4,7 @@ import { news } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function News() {
   const { locale } = useLocale();
@@ -50,58 +51,70 @@ export default function News() {
   }, []);
 
   return (
-    <section id="news" className="py-14">
+    <section id="news" className="py-10 sm:py-12 md:py-14">
       <Container>
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
           <div>
             <div
               className={
                 activeId === "news"
-                  ? "text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
-                  : "text-[12px] uppercase tracking-luxe text-ash"
+                  ? "text-[11px] sm:text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
+                  : "text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash"
               }
               data-active-anchor
             >
               {t.title}
             </div>
-            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
+            <h2 className="mt-3 sm:mt-4 text-[28px] sm:text-2xl md:text-3xl font-semibold tracking-[-0.01em] leading-tight">
               {t.subtitle}
             </h2>
           </div>
         </div>
 
-        <div className="mt-8">
-          <div className="text-[12px] uppercase tracking-luxe text-ash">{t.topLabel}</div>
-          <div className="mt-4 rounded-xl2 border border-hairline overflow-hidden bg-panel">
+        <div className="mt-7 sm:mt-8">
+          <div className="text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash">{t.topLabel}</div>
+          <div className="mt-3 sm:mt-4 rounded-xl2 border border-hairline overflow-hidden bg-panel">
             {topItems.map((it, idx) => (
-              <div key={it.id}>
+              <motion.div 
+                key={it.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, margin: "-30px" }}
+              >
                 <a href={it.url} target="_blank" rel="noreferrer" className="news-row">
-                  <div className="news-row-title">{it.title}</div>
-                  <div className="news-row-meta">
+                  <div className="news-row-title text-[14px] sm:text-base">{it.title}</div>
+                  <div className="news-row-meta text-[11px] sm:text-[12px]">
                     <span>{it.source}</span>
                     <span>{it.time}</span>
                   </div>
                 </a>
                 {idx !== topItems.length - 1 && <Divider />}
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        <div className="mt-10">
-          <div className="text-[12px] uppercase tracking-luxe text-ash">{t.editorLabel}</div>
-          <div className="mt-4 rounded-xl2 border border-hairline overflow-hidden bg-panel">
+        <div className="mt-8 sm:mt-10">
+          <div className="text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash">{t.editorLabel}</div>
+          <div className="mt-3 sm:mt-4 rounded-xl2 border border-hairline overflow-hidden bg-panel">
             {(goItems ?? t.manual).slice(0, 3).map((it, idx) => (
-              <div key={it.id}>
+              <motion.div 
+                key={it.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, margin: "-30px" }}
+              >
                 <a href={it.url} className="news-editor-row">
-                  <div className="news-editor-title">{it.title}</div>
-                  <div className="news-editor-meta">
+                  <div className="news-editor-title text-[14px] sm:text-base">{it.title}</div>
+                  <div className="news-editor-meta text-[11px] sm:text-[12px]">
                     <span>{it.source}</span>
                     <span>{it.time}</span>
                 </div>
               </a>
                 {idx !== t.manual.length - 1 && <Divider />}
-            </div>
+            </motion.div>
           ))}
           </div>
         </div>

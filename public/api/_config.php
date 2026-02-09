@@ -8,7 +8,48 @@ declare(strict_types=1);
  * - Create `public/api/config.local.php` on the server (not committed to git)
  *   and return an array with secrets (DB/SMTP/admin password).
  * - This file falls back to environment variables if `config.local.php` doesn't exist.
+ * - Or set system environment variables directly on the server.
  */
+
+/**
+ * Load .env.local file for local development
+ */
+function lot_load_env_file(): void {
+  $env_file = dirname(__DIR__, 2) . '/.env.local';
+  if (!is_file($env_file)) {
+    return;
+  }
+  
+  $lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+  if (!is_array($lines)) return;
+  
+  foreach ($lines as $line) {
+    // Skip comments
+    if (str_starts_with(trim($line), '#')) {
+      continue;
+    }
+    
+    // Parse KEY=VALUE
+    if (str_contains($line, '=')) {
+      [$key, $value] = explode('=', $line, 2);
+      $key = trim($key);
+      $value = trim($value);
+      
+      // Remove quotes if present
+      if ((str_starts_with($value, '"') && str_ends_with($value, '"')) ||
+          (str_starts_with($value, "'") && str_ends_with($value, "'"))) {
+        $value = substr($value, 1, -1);
+      }
+      
+      // Only set if not already set in system environment
+      if (!getenv($key)) {
+        putenv("$key=$value");
+      }
+    }
+  }
+}
+
+lot_load_env_file();
 
 function lot_load_config(): array {
   $local = __DIR__ . '/config.local.php';

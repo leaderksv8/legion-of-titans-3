@@ -9,10 +9,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
   $file = lot_data_file($cfg, 'team.json');
   $data = lot_load_json_file($file, ['items' => []]);
   lot_json(200, ['ok' => true, 'items' => $data['items'] ?? []]);
+  exit;
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
   lot_json(405, ['ok' => false, 'error' => 'method_not_allowed']);
+  exit;
 }
 
 lot_require_admin($cfg);

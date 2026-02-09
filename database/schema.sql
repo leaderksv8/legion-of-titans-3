@@ -11,9 +11,11 @@ CREATE TABLE IF NOT EXISTS lot_submissions (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   published_at DATETIME NULL,
+  deleted_at DATETIME NULL,
   PRIMARY KEY (id),
   KEY idx_status_type_pub (status, type, published_at),
-  KEY idx_created_at (created_at)
+  KEY idx_created_at (created_at),
+  KEY idx_deleted_at (deleted_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS lot_rate_limits (

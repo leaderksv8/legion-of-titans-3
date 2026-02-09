@@ -50,28 +50,28 @@ export default function Header() {
         <Container>
           <MotionDiv variants={fadeUp} initial="hidden" animate="show" className="flex h-16 items-center justify-between">
             {/* Use absolute hash link so the logo works as "back to home" from sub-routes (e.g., /thanks). */}
-            <a href="/#home" className="inline-flex items-center gap-3 logo-link min-w-0">
-              <span className="flex h-16 w-16 items-center justify-center overflow-visible logo-wrap">
+            <a href="/#home" className="inline-flex items-center gap-2 sm:gap-3 logo-link min-w-0 flex-1 sm:flex-none">
+              <span className="flex h-14 sm:h-16 w-14 sm:w-16 items-center justify-center overflow-visible logo-wrap flex-shrink-0">
                 <img
                   src="/images/logo/logo%20white.svg?v=2"
                   alt="ГО «Легіон Титанів»"
-                  className="block h-16 w-16 object-contain origin-top scale-[2.0] logo-glow"
+                  className="block h-14 sm:h-16 w-14 sm:w-16 object-contain origin-top scale-[2.0] logo-glow"
                   loading="eager"
                 />
               </span>
 
               <span className="min-w-0 text-white">
                 <span className="hidden max-[420px]:block leading-tight">
-                  <span className="block text-[10px] tracking-[0.22em] uppercase text-ash/80">{branding_t.headerOrg}</span>
-                  <span className="block text-[13px] font-semibold tracking-[0.10em]">{branding_t.headerName}</span>
+                  <span className="block text-[9px] sm:text-[10px] tracking-[0.22em] uppercase text-ash/80">{branding_t.headerOrg}</span>
+                  <span className="block text-[12px] sm:text-[13px] font-semibold tracking-[0.10em]">{branding_t.headerName}</span>
                 </span>
-                <span className="block max-[420px]:hidden text-sm md:text-base font-semibold tracking-[0.10em] whitespace-nowrap truncate">
+                <span className="block max-[420px]:hidden text-[13px] sm:text-sm md:text-base font-semibold tracking-[0.10em] whitespace-nowrap truncate">
                   {branding_t.headerOrg} {branding_t.headerName}
                 </span>
               </span>
             </a>
 
-            <nav className="hidden lg:flex items-center gap-7 text-[12px] uppercase tracking-luxe text-ash">
+            <nav className="hidden lg:flex items-center gap-6 lg:gap-7 text-[11px] sm:text-[12px] lg:text-[12px] uppercase tracking-luxe text-ash">
               {links.map((l) => (
                 l.href.includes("#contact") ? (
                   <button
@@ -94,7 +94,7 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <LocaleToggle locale={locale} onChange={setLocale} />
               <Burger open={open} onClick={() => setOpen((v) => !v)} />
             </div>
@@ -105,7 +105,7 @@ export default function Header() {
         <div className={"lg:hidden " + (open ? "block" : "hidden")}>
           <Divider />
           <Container>
-            <div className="py-4 flex flex-col gap-3 text-[12px] uppercase tracking-luxe text-ash">
+            <div className="py-3 sm:py-4 flex flex-col gap-2 sm:gap-3 text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash">
               {links.map((l) => (
                 l.href.includes("#contact") ? (
                   <button

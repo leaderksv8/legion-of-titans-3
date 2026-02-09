@@ -20,16 +20,16 @@ export default function Footer() {
     { href: "/#team", label: t.footerNavTeam },
   ];
   return (
-    <footer className="mt-16 border-t border-hairline">
+    <footer className="mt-12 sm:mt-14 md:mt-16 border-t border-hairline">
       <div className="bg-black/25">
         <Container>
-          <div className="py-10 md:py-12">
-            <div className="grid gap-8 md:gap-10 md:grid-cols-2 items-start">
+          <div className="py-8 sm:py-10 md:py-12">
+            <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-2 items-start">
               {/* Contacts */}
-              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
-                <div className="text-[10px] uppercase tracking-luxe text-ash">{t.footerContactsTitle}</div>
+              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-5 sm:p-6 shadow-luxe">
+                <div className="text-[9px] sm:text-[10px] uppercase tracking-luxe text-ash">{t.footerContactsTitle}</div>
 
-                <div className="mt-4 space-y-2 text-sm md:text-[15px] leading-relaxed text-paper">
+                <div className="mt-3 sm:mt-4 space-y-2 text-[14px] sm:text-sm md:text-[15px] leading-relaxed text-paper">
                   <div>
                     <span className="block">{t.footerAddressLine1}</span>
                     <span className="block">{t.footerAddressLine2}</span>
@@ -46,10 +46,10 @@ export default function Footer() {
               </div>
 
               {/* Quick nav */}
-              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-6 shadow-luxe">
-                <div className="text-[10px] uppercase tracking-luxe text-ash">{t.footerNavTitle}</div>
+              <div className="rounded-2xl border border-hairline bg-panel/35 backdrop-blur-md p-5 sm:p-6 shadow-luxe">
+                <div className="text-[9px] sm:text-[10px] uppercase tracking-luxe text-ash">{t.footerNavTitle}</div>
 
-                <ul className="mt-4 space-y-2 text-sm md:text-[15px]">
+                <ul className="mt-3 sm:mt-4 space-y-2 text-[14px] sm:text-sm md:text-[15px]">
                   {NAV_LINKS.map((item) => (
                     <li key={item.href}>
                       <ScrollLink className="link-gold" href={item.href}>
@@ -61,7 +61,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="mt-10 border-t border-hairline/70 pt-6 text-center text-[11px] tracking-[0.32em] text-ash">
+            <div className="mt-8 sm:mt-10 border-t border-hairline/70 pt-5 sm:pt-6 text-center text-[10px] sm:text-[11px] tracking-[0.32em] text-ash">
               {t.footerCopyright}
             </div>
           </div>

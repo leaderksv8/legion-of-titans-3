@@ -31,6 +31,12 @@ export default function ThanksPage() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Скролимо до верху при завантаженні сторінки
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    window.scrollTo({ top: 0, behavior: isMobile ? "smooth" : "auto" });
+  }, []);
+
   useEffect(() => {
     (async () => {
       try {

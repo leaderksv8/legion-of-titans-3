@@ -108,7 +108,7 @@ $publicBase = '';
 
 if ($type === 'team') {
   $maxSize = 900;
-  $baseDir = __DIR__ . '/../images/team';
+  $baseDir = __DIR__ . '/../../images/team';
   $publicBase = '/images/team';
 } elseif ($type === 'events') {
   if ($folder === '') lot_upload_error('missing_folder');
@@ -125,6 +125,8 @@ if (!is_dir($baseDir)) {
 }
 
 $saved = [];
+$allowed_mimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
 foreach ($files as $f) {
   if (($f['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) continue;
   $tmp = (string)$f['tmp_name'];
@@ -132,12 +134,21 @@ foreach ($files as $f) {
   $info = @getimagesize($tmp);
   if (!$info || empty($info['mime'])) continue;
   $mime = $info['mime'];
+  
+  // Перевіряємо, чи це допустимий тип зображення
+  if (!in_array($mime, $allowed_mimes, true)) {
+    continue;
+  }
+  
+  // Try to use GD/Imagick, but fallback to direct copy if not available
   $img = lot_image_from_file($tmp, $mime);
   $usingImagick = false;
+  $useDirectCopy = false;
+  
   if (!$img && lot_imagick_available()) {
     $usingImagick = true;
   } elseif (!$img) {
-    continue;
+    $useDirectCopy = true;
   }
 
   if ($type === 'events') {
@@ -156,11 +167,19 @@ foreach ($files as $f) {
     }
   } else {
     $slug = lot_safe_slug(pathinfo((string)$f['name'], PATHINFO_FILENAME));
-    $filename = $slug . '-' . time() . '.webp';
+    // Use original extension for direct copy, .webp for converted
+    $ext = $useDirectCopy ? pathinfo((string)$f['name'], PATHINFO_EXTENSION) : 'webp';
+    $filename = $slug . '-' . time() . '.' . $ext;
   }
 
   $dest = $baseDir . '/' . $filename;
-  if ($usingImagick) {
+  
+  if ($useDirectCopy) {
+    // Direct copy without conversion
+    $contents = @file_get_contents($tmp);
+    if ($contents === false) continue;
+    if (@file_put_contents($dest, $contents) === false) continue;
+  } elseif ($usingImagick) {
     if (!lot_imagick_save_webp($tmp, $dest, $maxSize, $quality)) continue;
   } else {
     lot_save_webp($img, $dest, $maxSize, $quality);

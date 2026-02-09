@@ -5,6 +5,7 @@ import { heroes } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 type Item = {
   id: number;
@@ -119,44 +120,48 @@ export default function Heroes() {
       setMessage("");
       setConsent(false);
       setHp("");
-      // do not auto-close: show confirmation
+      
+      toast.success("✓ " + t.modal.sent);
       await load();
+      setTimeout(() => setOpen(false), 2000);
     } catch (e: any) {
       setStatus("error");
       const code = String(e?.message || "");
-      setErrorText(
+      const errorMsg = 
         code === "NO_CONSENT"
           ? t.modal.noConsent
           : code === "TOO_SHORT"
           ? t.modal.tooShort
           : code === "RATE_LIMIT"
           ? t.modal.rateLimit
-          : t.modal.error
-      );
+          : t.modal.error;
+      
+      setErrorText(errorMsg);
+      toast.error(errorMsg);
     }
   }
 
   return (
-    <section id="heroes" className="py-14">
+    <section id="heroes" className="py-10 sm:py-12 md:py-14">
       <Container>
-        <div className="flex items-end justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
           <div className="min-w-0">
             <div
               className={
                 activeId === "heroes"
-                  ? "text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
-                  : "text-[12px] uppercase tracking-luxe text-ash"
+                  ? "text-[11px] sm:text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
+                  : "text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash"
               }
               data-active-anchor
             >
               {t.title}
             </div>
-            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
+            <h2 className="mt-3 sm:mt-4 text-[28px] sm:text-2xl md:text-3xl font-semibold tracking-[-0.01em] leading-tight">
               {t.subtitle}
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3">
             <a
               className="hidden md:inline-flex text-[12px] uppercase tracking-luxe text-ash hover:text-paper transition-colors"
               href="/thanks"
@@ -164,7 +169,7 @@ export default function Heroes() {
               {t.archiveLabel}
             </a>
             <button
-              className="inline-flex items-center justify-center rounded-full px-4 py-2 text-[12px] uppercase tracking-luxe border border-hairline bg-black/20 hover:bg-white/5 hover:text-gold transition-colors"
+              className="inline-flex items-center justify-center rounded-full px-5 sm:px-4 py-3 sm:py-2 text-[12px] uppercase tracking-luxe border border-hairline bg-black/20 hover:bg-white/5 hover:text-gold transition-colors"
               onClick={() => {
                 setOpen(true);
                 setStatus("idle");
@@ -177,11 +182,11 @@ export default function Heroes() {
           </div>
         </div>
 
-        <div className="mt-8 rounded-xl2 border border-hairline overflow-hidden bg-panel">
+        <div className="mt-6 sm:mt-8 rounded-xl2 border border-hairline overflow-hidden bg-panel">
           {loading ? (
-            <div className="p-8 text-ash">{locale === "uk" ? "Завантаження…" : "Loading…"}</div>
+            <div className="p-6 sm:p-8 text-ash text-[14px] sm:text-base">{locale === "uk" ? "Завантаження…" : "Loading…"}</div>
           ) : items.length === 0 ? (
-            <div className="p-8 text-ash">
+            <div className="p-6 sm:p-8 text-ash text-[14px] sm:text-base leading-relaxed">
               {locale === "uk" 
                 ? "Поки що немає опублікованих матеріалів. Ви можете надіслати подяку — після модерації вона з'явиться тут."
                 : "No published materials yet. You can send thanks — after moderation it will appear here."}
@@ -189,15 +194,15 @@ export default function Heroes() {
           ) : (
             items.map((s, idx) => (
               <div key={s.id}>
-                <div className="p-6 md:p-8 grid gap-5 md:grid-cols-12">
+                <div className="p-5 sm:p-6 md:p-8 grid gap-4 sm:gap-5 md:grid-cols-12">
                                     <div className="md:col-span-3">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-black/30 px-3 py-1 text-[11px] uppercase tracking-luxe text-ash">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-black/30 px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-luxe text-ash">
                       <span className="h-1.5 w-1.5 rounded-full bg-accent/70" aria-hidden="true" />
                       {formatDate(s.published_at ?? s.created_at)}
                     </div>
                   </div>
                   <div className="md:col-span-9 min-w-0">
-                    <div className="text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
+                    <div className="text-[16px] sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
                       {s.name ? s.name : "Анонімна подяка"}
                     </div>
                     <p className="mt-3 text-ash leading-relaxed text-[15px] md:text-[16px] max-w-[78ch] whitespace-pre-line">

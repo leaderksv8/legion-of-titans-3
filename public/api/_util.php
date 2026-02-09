@@ -12,6 +12,16 @@ function lot_json(int $status, array $data): void {
   header('x-robots-tag: noindex, nofollow');
   header('content-type: application/json; charset=utf-8');
   header('cache-control: no-store');
+  // CORS - allow cookies only for configured origins
+  $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+  $allowed_raw = getenv('CORS_ALLOWED_ORIGINS') ?: '';
+  $allowed = array_filter(array_map('trim', explode(',', $allowed_raw)));
+  if ($origin !== '' && in_array($origin, $allowed, true)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+    header('Access-Control-Allow-Headers: Content-Type, X-CSRF-Token, X-LOT-CSRF');
+  }
   echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
   exit;
 }
@@ -67,14 +77,13 @@ function lot_session_start(array $cfg): void {
   if ($mins <= 0) $mins = 30;
   $lifetime = $mins * 60;
 
-  // Cookie flags
-  $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+  // Cookie flags - allow for IP-based access
   session_name('lot_admin');
   session_set_cookie_params([
     'lifetime' => $lifetime,
     'path' => '/',
-    'domain' => '',
-    'secure' => $secure,
+    'domain' => '',  // Allow cookies for any domain
+    'secure' => false,
     'httponly' => true,
     'samesite' => 'Lax',
   ]);
@@ -176,11 +185,10 @@ function lot_load_json_file(string $file, array $default): array {
 }
 
 function lot_save_json_file(string $file, array $data): void {
-  $tmp = $file . '.tmp';
   $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
   if ($json === false) $json = '{}';
-  file_put_contents($tmp, $json, LOCK_EX);
-  rename($tmp, $file);
+  @unlink($file);
+  file_put_contents($file, $json, LOCK_EX);
 }
 
 function lot_load_store(array $cfg): array {
@@ -271,23 +279,4 @@ function lot_update_status_store(array $cfg, int $id, string $status): bool {
     lot_save_store($cfg, $store);
   }
   return $updated;
-}
-
-function lot_rate_limit_file(array $cfg, string $key, int $limit, int $windowSeconds): void {
-  $file = lot_data_file($cfg, 'rate_limits.json');
-  $data = lot_load_json_file($file, []);
-  $now = time();
-  $entry = $data[$key] ?? null;
-  if (!is_array($entry) || (int)($entry['reset_at'] ?? 0) < $now) {
-    $data[$key] = ['count' => 1, 'reset_at' => $now + $windowSeconds];
-    lot_save_json_file($file, $data);
-    return;
-  }
-
-  $count = (int)($entry['count'] ?? 0);
-  if ($count >= $limit) {
-    lot_json(429, ['ok' => false, 'error' => 'RATE_LIMIT']);
-  }
-  $data[$key]['count'] = $count + 1;
-  lot_save_json_file($file, $data);
 }

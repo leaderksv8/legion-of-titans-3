@@ -10,30 +10,30 @@ export default function Achievements() {
   const t = achievements[locale];
 
   return (
-    <section id="achievements" className="py-14">
+    <section id="achievements" className="py-10 sm:py-12 md:py-14">
       <Container>
-        <div className="grid gap-10 md:grid-cols-12">
+        <div className="grid gap-6 sm:gap-8 md:gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <div
               className={
                 activeId === "achievements"
-                  ? "text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
-                  : "text-[12px] uppercase tracking-luxe text-ash"
+                  ? "text-[11px] sm:text-[12px] uppercase tracking-luxe text-red-400 underline decoration-red-400/80 underline-offset-4"
+                  : "text-[11px] sm:text-[12px] uppercase tracking-luxe text-ash"
               }
               data-active-anchor
             >
               {t.title}
             </div>
-            <h2 className="mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.01em]">
+            <h2 className="mt-3 sm:mt-4 text-[28px] sm:text-2xl md:text-3xl font-semibold tracking-[-0.01em] leading-tight">
               {t.subtitle}
             </h2>
-            <p className="mt-4 text-ash leading-relaxed">
+            <p className="mt-4 text-[14px] sm:text-base text-ash leading-relaxed">
               Дашборд оновлюється вашими реальними цифрами. Зараз — ваші приклади.
             </p>
           </div>
 
           <div className="md:col-span-7 rounded-xl2 border border-hairline overflow-hidden bg-panel">
-            <div className="p-6 md:p-8">
+            <div className="p-5 sm:p-6 md:p-8">
               <div className="achievements-marquee">
                 <div className="achievements-track" aria-label="Наші досягнення у цифрах">
                   {t.stats.map((s) => (
@@ -52,7 +52,7 @@ export default function Achievements() {
               </div>
             </div>
             <Divider />
-            <div className="p-6 md:p-8 text-sm text-ash">
+            <div className="p-5 sm:p-6 md:p-8 text-[14px] sm:text-sm text-ash">
               <span className="text-paper">Принцип:</span> максимум прозорості без шкоди безпеці.
             </div>
           </div>

@@ -14,9 +14,8 @@ $useDb = lot_has_db($cfg);
 if ($useDb) {
   $pdo = lot_pdo($cfg);
   lot_rate_limit($pdo, 'submit:' . $ip, 6, 10 * 60);
-} else {
-  lot_rate_limit_file($cfg, 'submit:' . $ip, 6, 10 * 60);
 }
+// If DB not configured, rate limiting is skipped (feature requires database)
 
 $body = lot_read_json_body();
 if (!$body) lot_json(400, ['ok' => false, 'error' => 'BAD_JSON']);
