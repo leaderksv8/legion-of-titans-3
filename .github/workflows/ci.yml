@@ -1,0 +1,38 @@
+name: CI Build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout код
+        uses: actions/checkout@v4
+
+      - name: Встановити Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Встановити залежності
+        run: npm ci
+
+      - name: Перевірити TypeScript
+        run: npx tsc --noEmit
+
+      - name: Build проекту
+        run: npm run build
+
+      - name: Перевірити розмір build
+        run: |
+          echo "📦 Розмір dist/:"
+          du -sh dist/
+          echo ""
+          echo "📄 Файли:"
+          ls -lh dist/assets/ | head -10
