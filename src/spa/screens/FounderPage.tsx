@@ -63,72 +63,83 @@ export default function FounderPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative min-h-[100dvh] sm:h-screen flex items-center overflow-hidden px-4 sm:px-6 py-8 sm:py-0"
+        className="relative overflow-hidden"
       >
-        {/* Фото - як фон але не перекриває контент */}
-        <div className="absolute inset-0">
-          <img
-            src={withBase(founder.photo)}
-            alt={founder.name}
-            className="w-full h-full object-cover"
-          />
-          {/* Градієнтний оверлей - більше чорного на мобільних для читаності */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/40 sm:via-black/60 sm:to-transparent" />
-        </div>
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,178,124,0.08),transparent_55%)]"
+          aria-hidden="true"
+        />
 
         {/* КОНТЕНТ - портальна енергія */}
         <Container>
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative z-10 max-w-2xl w-full"
-          >
-            {/* Кнопка назад - адаптована для мобільних */}
-            <button
-              onClick={() => window.history.back()}
-              className="mb-4 sm:mb-8 text-gold hover:text-gold/80 transition text-xs sm:text-sm uppercase tracking-luxe flex items-center gap-2"
-            >
-              ← Назад
-            </button>
-
-            {/* título - АЛЕЯ СЛАВИ */}
-            <div className="mb-3 sm:mb-6">
-              <div className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-gold/60 mb-2">
-                ◆ АЛЕЯ СЛАВИ ◆
+          <div className="relative py-10 sm:py-14 md:py-16 lg:py-20 grid gap-10 lg:grid-cols-3">
+            <div className="lg:col-span-1">
+              <div className="rounded-3xl border border-gold/20 bg-ink/60 p-3 sm:p-4 shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+                <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl border border-hairline">
+                  <img
+                    src={withBase(founder.photo)}
+                    alt={founder.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="mt-4 text-[10px] uppercase tracking-[0.25em] text-ash text-center">
+                  Портрет засновника
+                </div>
               </div>
-              <div className="h-1 w-12 bg-gradient-to-r from-gold to-transparent" />
             </div>
 
-            {/* ім'я - адаптовано для мобільних */}
-            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight mb-2 sm:mb-4 break-words">
-              {founder.name}
-            </h1>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              {/* Кнопка назад - адаптована для мобільних */}
+              <button
+                onClick={() => window.history.back()}
+                className="mb-4 sm:mb-8 text-gold hover:text-gold/80 transition text-xs sm:text-sm uppercase tracking-luxe flex items-center gap-2"
+              >
+                ← Назад
+              </button>
 
-            {/* посадовість - ужиті та адаптовані */}
-            <div className="text-sm sm:text-xl md:text-2xl text-gold uppercase tracking-wider mb-3 sm:mb-4">
-              {founder.role}
-            </div>
+              {/* título - АЛЕЯ СЛАВИ */}
+              <div className="mb-3 sm:mb-6">
+                <div className="text-[10px] sm:text-[12px] uppercase tracking-[0.2em] text-gold/60 mb-2">
+                  ◆ АЛЕЯ СЛАВИ ◆
+                </div>
+                <div className="h-1 w-12 bg-gradient-to-r from-gold to-transparent" />
+              </div>
 
-            {/* Номер засновника */}
-            <div className="text-xs sm:text-sm text-gold/50 uppercase tracking-[0.15em] mb-4 sm:mb-8 pb-4 sm:pb-8 border-b border-gold/30">
-              Засновник #{currentIndex + 1} з {allFounders.length}
-            </div>
+              {/* ім'я - адаптовано для мобільних */}
+              <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight mb-2 sm:mb-4 break-words">
+                {founder.name}
+              </h1>
 
-            {/* Біографія - адаптована для мобільних */}
-            <div className="max-w-xl">
-              <p className="text-xs sm:text-base md:text-lg leading-relaxed text-paper/90 whitespace-pre-wrap break-words text-justify sm:text-left">
-                {founder.bio}
-              </p>
-            </div>
+              {/* посадовість - ужиті та адаптовані */}
+              <div className="text-sm sm:text-xl md:text-2xl text-gold uppercase tracking-wider mb-3 sm:mb-4">
+                {founder.role}
+              </div>
 
-            {/* Промо текст */}
-            <div className="mt-6 sm:mt-12 pt-4 sm:pt-8 border-t border-gold/20">
-              <p className="text-xs sm:text-sm text-gold/60 uppercase tracking-wide">
-                Дізнайтеся більше про "Легіон Титанів"
-              </p>
-            </div>
-          </motion.div>
+              {/* Номер засновника */}
+              <div className="text-xs sm:text-sm text-gold/50 uppercase tracking-[0.15em] mb-4 sm:mb-8 pb-4 sm:pb-8 border-b border-gold/30">
+                Засновник #{currentIndex + 1} з {allFounders.length}
+              </div>
+
+              {/* Біографія - адаптована для мобільних */}
+              <div className="max-w-2xl">
+                <p className="text-xs sm:text-base md:text-lg leading-relaxed text-paper/90 whitespace-pre-wrap break-words text-justify sm:text-left">
+                  {founder.bio}
+                </p>
+              </div>
+
+              {/* Промо текст */}
+              <div className="mt-6 sm:mt-12 pt-4 sm:pt-8 border-t border-gold/20">
+                <p className="text-xs sm:text-sm text-gold/60 uppercase tracking-wide">
+                  Дізнайтеся більше про "Легіон Титанів"
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </Container>
       </motion.div>
 

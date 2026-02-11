@@ -1,4 +1,5 @@
 import { ReactNode, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 let scrollLockCount = 0;
 let prevOverflow = "";
@@ -139,9 +140,9 @@ export default function Modal({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className={`fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 ${containerClassName}`}
     >
@@ -161,7 +162,8 @@ export default function Modal({
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

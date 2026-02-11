@@ -1,11 +1,10 @@
 import Container from "@/shared/ui/Container";
 import Divider from "@/shared/ui/Divider";
-import Modal from "@/shared/ui/Modal";
+import { Link } from "react-router-dom";
 import { heroes } from "@/content/site";
 import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
-import { useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 type Item = {
   id: number;
@@ -31,16 +30,6 @@ export default function Heroes() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const activeId = useActiveSectionId();
-
-  // submit modal
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [consent, setConsent] = useState(false);
-  const [hp, setHp] = useState(""); // honeypot
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [errorText, setErrorText] = useState<string>("");
 
   const t = heroes[locale];
 
@@ -69,7 +58,6 @@ export default function Heroes() {
 
   async function load() {
     setLoading(true);
-    setErrorText("");
     try {
       const r = await fetch(`/api/public?type=thanks&limit=3`, { cache: "no-store" });
       const j = await r.json();
@@ -89,57 +77,6 @@ export default function Heroes() {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function submit() {
-    setStatus("sending");
-    setErrorText("");
-    try {
-      const r = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          type: "thanks",
-          name,
-          email,
-          message,
-          consent,
-          hp, // honeypot
-          turnstileToken: "", // optional; will be wired when we add Turnstile widget
-        }),
-      });
-
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok || !j?.ok) {
-        const code = j?.error || "UNKNOWN";
-        throw new Error(code);
-      }
-
-      setStatus("sent");
-      setName("");
-      setEmail("");
-      setMessage("");
-      setConsent(false);
-      setHp("");
-      
-      toast.success("✓ " + t.modal.sent);
-      await load();
-      setTimeout(() => setOpen(false), 2000);
-    } catch (e: any) {
-      setStatus("error");
-      const code = String(e?.message || "");
-      const errorMsg = 
-        code === "NO_CONSENT"
-          ? t.modal.noConsent
-          : code === "TOO_SHORT"
-          ? t.modal.tooShort
-          : code === "RATE_LIMIT"
-          ? t.modal.rateLimit
-          : t.modal.error;
-      
-      setErrorText(errorMsg);
-      toast.error(errorMsg);
-    }
-  }
 
   return (
     <section id="heroes" className="py-10 sm:py-12 md:py-14">
@@ -168,17 +105,12 @@ export default function Heroes() {
             >
               {t.archiveLabel}
             </a>
-            <button
+            <Link
+              to="/thanks"
               className="inline-flex items-center justify-center rounded-full px-5 sm:px-4 py-3 sm:py-2 text-[12px] uppercase tracking-luxe border border-hairline bg-black/20 hover:bg-white/5 hover:text-gold transition-colors"
-              onClick={() => {
-                setOpen(true);
-                setStatus("idle");
-                setErrorText("");
-              }}
-              type="button"
             >
               {locale === "uk" ? "Надіслати подяку" : "Send thanks"}
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -215,127 +147,6 @@ export default function Heroes() {
             ))
           )}
         </div>
-
-        {/* Modal */}
-        <Modal
-          open={open}
-          title={locale === "uk" ? "Надіслати подяку" : "Send thanks"}
-          onClose={() => setOpen(false)}
-        >
-          <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain touch-pan-y hide-scrollbar">
-            <div className="p-6 md:p-7 relative">
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" aria-hidden="true" />
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-[12px] uppercase tracking-luxe text-ash">{locale === "uk" ? "Надсилання" : "Submission"}</div>
-                    <div className="mt-2 text-xl font-semibold">
-                      {locale === "uk" ? "Надіслати подяку" : "Send thanks"}
-                    </div>
-                  </div>
-                  <button
-                    className="rounded-full px-3 py-1 text-ash hover:text-paper transition-colors"
-                    onClick={() => setOpen(false)}
-                    type="button"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div className="mt-5 grid gap-4">
-                  <div className="grid gap-2">
-                    <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      {t.modal.nameLabel}
-                    </label>
-                    <input
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="h-11 rounded-xl border border-hairline bg-black/20 px-4 text-paper outline-none focus:border-gold/60"
-                      placeholder={t.modal.namePlaceholder}
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      {t.modal.emailLabel}
-                    </label>
-                    <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="h-11 rounded-xl border border-hairline bg-black/20 px-4 text-paper outline-none focus:border-gold/60"
-                      placeholder="name@example.com"
-                      inputMode="email"
-                    />
-                  </div>
-
-                  {/* Honeypot (hidden) */}
-                  <input
-                    value={hp}
-                    onChange={(e) => setHp(e.target.value)}
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                  />
-
-                  <div className="grid gap-2">
-                    <label className="text-[12px] uppercase tracking-luxe text-ash">
-                      {t.modal.messageLabel}
-                    </label>
-                    <textarea
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      className="min-h-[140px] rounded-xl border border-hairline bg-black/20 px-4 py-3 text-paper outline-none focus:border-gold/60 resize-y"
-                      placeholder={t.modal.messagePlaceholder}
-                    />
-                  </div>
-
-                  <label className="flex items-start gap-3 text-sm text-ash leading-relaxed">
-                    <input
-                      type="checkbox"
-                      checked={consent}
-                      onChange={(e) => setConsent(e.target.checked)}
-                      className="mt-1 h-4 w-4 accent-[rgba(201,178,124,0.9)]"
-                    />
-                    <span>
-                      {t.modal.consentText}
-                    </span>
-                  </label>
-
-                  {status === "sent" ? (
-                    <div className="rounded-xl border border-hairline bg-black/20 p-4 text-paper">
-                      {t.modal.sent}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <button
-                        className="h-11 rounded-xl border border-hairline bg-black/20 px-5 text-[12px] uppercase tracking-luxe text-paper hover:bg-white/5 transition-colors"
-                        onClick={() => setOpen(false)}
-                        type="button"
-                      >
-                        {t.modal.cancel}
-                      </button>
-                      <button
-                        className="h-11 rounded-xl px-5 text-[12px] uppercase tracking-luxe bg-gold/15 border border-gold/35 text-paper hover:bg-gold/25 transition-colors disabled:opacity-50"
-                        onClick={submit}
-                        disabled={status === "sending"}
-                        type="button"
-                      >
-                        {status === "sending" ? t.modal.sending : t.modal.send}
-                      </button>
-                    </div>
-                  )}
-
-                  {status === "error" && (
-                    <div className="text-sm text-ash">{errorText}</div>
-                  )}
-
-                  <div className="text-[12px] text-ash">
-                    {t.modal.footerNote}
-                  </div>
-                </div>
-            </div>
-          </div>
-        </Modal>
       </Container>
     </section>
   );

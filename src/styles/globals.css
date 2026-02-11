@@ -1015,9 +1015,22 @@ button, a, [role="button"] {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  /* Мобільні: квадрат */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #0a0b0d;
+}
+/* Планшети: більш портретне хо */
+@media (min-width: 640px) {
+  .founder-photo {
+    aspect-ratio: 4 / 5;
+  }
+}
+/* Десктоп: портрет */
+@media (min-width: 1024px) {
+  .founder-photo {
+    aspect-ratio: 3 / 4;
+  }
 }
 .founder-photo::after{
   content: "";

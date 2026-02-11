@@ -97,8 +97,8 @@ export default function Founders() {
           </h2>
         </div>
 
-        {/* Сітка карток - НОРМАЛЬНА, З ГЕПОМ */}
-        <div className="grid gap-8 sm:gap-10 lg:gap-12 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+        {/* Сітка карток - АДАПТИВНА ДЛЯ МОБІЛЬНИХ */}
+        <div className="grid gap-6 sm:gap-8 lg:gap-10 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {people.map((person, idx) => (
             <FounderCard key={person.id} person={person} index={idx} />
           ))}

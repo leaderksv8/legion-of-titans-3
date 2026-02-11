@@ -11,6 +11,8 @@ import { Status, Type, TeamItem, NewsGoItem, EventItem, Item } from "./admin/typ
 export default function AdminPanel() {
   const [authed, setAuthed] = useState<boolean>(false);
   const [csrf, setCsrf] = useState<string>("");
+  const [loginError, setLoginError] = useState<string>("");
+  const [loginBusy, setLoginBusy] = useState(false);
 
   const [status, setStatus] = useState<Status>("PENDING");
   const [type] = useState<Type>("thanks");
@@ -226,27 +228,36 @@ export default function AdminPanel() {
 
           {!authed ? (
             <div className="mt-10 rounded-2xl border border-hairline bg-panel p-4 sm:p-6 md:p-7">
-              <AdminLogin onLogin={async (pw) => {
-                try {
-                  const r = await fetch("/api/admin/login.php", {
-                    method: "POST",
-                    headers: { "content-type": "application/json" },
-                    body: JSON.stringify({ password: pw }),
-                  });
-                  if (!r.ok) throw new Error(`${r.status}`);
-                  const j = await r.json().catch(() => ({}));
-                  if (typeof j?.csrf === "string") {
-                    setCsrf(j.csrf);
-                    setAuthed(true);
+              <AdminLogin 
+                onLogin={async (pw) => {
+                  setLoginError("");
+                  setLoginBusy(true);
+                  try {
+                    const r = await fetch("/api/admin/login.php", {
+                      method: "POST",
+                      headers: { "content-type": "application/json" },
+                      body: JSON.stringify({ password: pw }),
+                    });
+                    if (!r.ok) throw new Error(`${r.status}`);
+                    const j = await r.json().catch(() => ({}));
+                    if (typeof j?.csrf === "string") {
+                      setCsrf(j.csrf);
+                      setAuthed(true);
                     await load();
                     await loadTeam();
                     await loadNewsGo();
                     await loadEvents();
                   }
                 } catch (e) {
-                  throw new Error("Неправильний пароль");
+                  setLoginError("Неправильний пароль");
                 }
-              }} />
+                finally {
+                  setLoginBusy(false);
+                }
+              }}
+              disabled={loginBusy}
+              error={loginError}
+              />
             </div>
           ) : (
             <>

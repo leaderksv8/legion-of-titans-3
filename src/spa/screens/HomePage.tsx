@@ -37,7 +37,7 @@ function scrollToHash(behavior: ScrollBehavior) {
   // allow layout settle
   window.requestAnimationFrame(() => {
     const offset = el.getBoundingClientRect().top + window.scrollY - SCROLL_OFFSET;
-    window.scrollTo({ top: Math.max(0, offset), behavior, block: "start" });
+    window.scrollTo({ top: Math.max(0, offset), behavior });
   });
 }
 

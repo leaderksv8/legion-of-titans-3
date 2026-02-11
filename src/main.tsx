@@ -14,6 +14,14 @@ if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
 }
 
+// GitHub Pages SPA routing fix: restore URL after 404.html redirect
+if (typeof sessionStorage !== 'undefined' && sessionStorage.redirect) {
+  const redirectPath = sessionStorage.redirect;
+  delete sessionStorage.redirect;
+  // Replace current history entry to restore the intended URL
+  window.history.replaceState({}, '', redirectPath);
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <HelmetProvider>

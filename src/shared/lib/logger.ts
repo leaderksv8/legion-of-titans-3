@@ -1,3 +1,7 @@
+/// <reference types="vite/client" />
+
+/// <reference types="vite/client" />
+
 /**
  * Logger utility für dev/prod unterschiedliche ausgaben
  * Production: log gespeichert, error gesendet
