@@ -13,8 +13,13 @@ import TeamPage from "@/spa/screens/TeamPage";
 const LazyAdminPage = lazy(() => import("@/spa/screens/AdminPage"));
 
 export function AppRouter() {
+  // GitHub Pages потребує basename для SPA маршрутизації
+  const isGhPages = process.env.GITHUB_PAGES === "true" || 
+                    (typeof window !== 'undefined' && window.location.hostname === 'leaderksv8.github.io');
+  const basename = isGhPages ? "/legion-of-titans-3" : "/";
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/events/:id" element={<EventPage />} />
