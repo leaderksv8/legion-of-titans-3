@@ -6,6 +6,15 @@ import { useActiveSectionId } from "@/shared/lib/activeSectionContext";
 import { useLocale } from "@/shared/lib/localeContext";
 import { useEffect, useState } from "react";
 
+const SCROLL_KEY = "lt-scroll-y";
+const RESTORE_KEY = "lt-scroll-restore";
+
+function rememberScroll() {
+  const y = window.scrollY;
+  sessionStorage.setItem(SCROLL_KEY, String(y));
+  sessionStorage.setItem(RESTORE_KEY, "1");
+}
+
 type Item = {
   id: number;
   type: "thanks";
@@ -100,12 +109,14 @@ export default function Heroes() {
 
           <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3">
             <Link
+              onClick={rememberScroll}
               to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/thanks`}
               className="hidden md:inline-flex text-[12px] uppercase tracking-luxe text-ash hover:text-paper transition-colors"
             >
               {t.archiveLabel}
             </Link>
             <Link
+              onClick={rememberScroll}
               to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/thanks`}
               className="inline-flex items-center justify-center rounded-full px-5 sm:px-4 py-3 sm:py-2 text-[12px] uppercase tracking-luxe border border-hairline bg-black/20 hover:bg-white/5 hover:text-gold transition-colors"
             >

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useNavigationType } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -9,6 +10,9 @@ import Container from "@/shared/ui/Container";
 import Divider from "@/shared/ui/Divider";
 import { useLocale } from "@/shared/lib/localeContext";
 import { heroes } from "@/content/site";
+
+const SCROLL_KEY = "lt-scroll-y";
+const RESTORE_KEY = "lt-scroll-restore";
 
 type Item = {
   id: number;
@@ -31,6 +35,7 @@ function formatDate(iso: string) {
 
 export default function ThanksPage() {
   const { locale } = useLocale();
+  const navigationType = useNavigationType();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,11 +50,31 @@ export default function ThanksPage() {
 
   const t = heroes[locale];
 
-  // Скролимо до верху при завантаженні сторінки
+  // Scroll restoration ПЕРЕД рендеру (useLayoutEffect)
+  useLayoutEffect(() => {
+    if (navigationType === "POP") {
+      const savedY = sessionStorage.getItem(SCROLL_KEY);
+      const shouldRestore = sessionStorage.getItem(RESTORE_KEY) === "1";
+
+      if (shouldRestore && savedY) {
+        const y = Number(savedY);
+        if (Number.isFinite(y) && y > 0) {
+          window.scrollTo(0, y);
+          sessionStorage.removeItem(SCROLL_KEY);
+          sessionStorage.removeItem(RESTORE_KEY);
+          return;
+        }
+      }
+    }
+  }, [navigationType]);
+
+  // Скролимо до верху при завантаженні (якщо не POP)
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    window.scrollTo({ top: 0, behavior: isMobile ? "smooth" : "auto" });
-  }, []);
+    if (navigationType !== "POP") {
+      const isMobile = window.innerWidth < 768;
+      window.scrollTo({ top: 0, behavior: isMobile ? "smooth" : "auto" });
+    }
+  }, [navigationType]);
 
   // Load published thanks
   useEffect(() => {
