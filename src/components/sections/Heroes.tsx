@@ -99,14 +99,14 @@ export default function Heroes() {
           </div>
 
           <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3">
-            <a
+            <Link
+              to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/thanks`}
               className="hidden md:inline-flex text-[12px] uppercase tracking-luxe text-ash hover:text-paper transition-colors"
-              href="/thanks"
             >
               {t.archiveLabel}
-            </a>
+            </Link>
             <Link
-              to="/thanks"
+              to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/thanks`}
               className="inline-flex items-center justify-center rounded-full px-5 sm:px-4 py-3 sm:py-2 text-[12px] uppercase tracking-luxe border border-hairline bg-black/20 hover:bg-white/5 hover:text-gold transition-colors"
             >
               {locale === "uk" ? "Надіслати подяку" : "Send thanks"}

@@ -172,7 +172,7 @@ export default function ThanksPage() {
               </div>
 
               <Link
-                to="/#heroes"
+                to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/#heroes`}
                 className="shrink-0 inline-flex items-center gap-2 rounded-full border border-hairline px-4 py-2 text-[12px] tracking-luxe uppercase text-paper/90 hover:border-gold/50 hover:text-paper transition-colors"
                 aria-label={locale === "uk" ? "Закрити" : "Close"}
               >
@@ -279,7 +279,7 @@ export default function ThanksPage() {
                   {/* Submit button */}
                   <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <Link
-                      to="/#heroes"
+                      to={`${window.location.pathname.startsWith('/legion-of-titans-3/') ? '/legion-of-titans-3' : ''}/#heroes`}
                       className="inline-flex items-center justify-center h-12 rounded-xl border border-hairline bg-black/20 px-5 text-[12px] uppercase tracking-luxe text-paper hover:bg-white/5 transition-colors"
                     >
                       {locale === "uk" ? "Скасувати" : "Cancel"}
