@@ -1015,8 +1015,8 @@ button, a, [role="button"] {
   position: relative;
   display: block;
   width: 100%;
-  /* Мобільні: квадрат */
-  aspect-ratio: 1 / 1;
+  /* Мобільні: портретне фото щоб голова не обрізалась */
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: #0a0b0d;
 }
@@ -1048,6 +1048,8 @@ button, a, [role="button"] {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Позиціонуємо зображення зверху щоб голови залишались в кадрі */
+  object-position: center top;
   transition: transform 240ms ease;
 }
 .founder-card:hover .founder-photo img{
