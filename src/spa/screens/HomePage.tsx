@@ -58,19 +58,26 @@ export default function HomePage() {
       if (shouldRestore && savedY) {
         const y = Number(savedY);
         if (Number.isFinite(y) && y > 0) {
-          // Відновлюємо позицію СИНХРОННО (ДО відмалювання)
-          window.scrollTo(0, y);
           hasRestoredRef.current = true;
           
-          // Для мобільних - додаткова перевірка після рендеру
-          const isMobile = 'ontouchstart' in window;
-          if (isMobile) {
-            requestAnimationFrame(() => {
-              if (window.scrollY !== y) {
+          // Даємо DOM час відмалюватися перед скролом
+          requestAnimationFrame(() => {
+            window.scrollTo(0, y);
+            
+            // Retry логіка: перевіряємо через 50ms чи скрол відбувся
+            setTimeout(() => {
+              if (Math.abs(window.scrollY - y) > 50) {
                 window.scrollTo(0, y);
+                
+                // Фінальна спроба через 100ms (для повільних пристроїв)
+                setTimeout(() => {
+                  if (Math.abs(window.scrollY - y) > 50) {
+                    window.scrollTo(0, y);
+                  }
+                }, 100);
               }
-            });
-          }
+            }, 50);
+          });
           
           // Очищуємо дані
           sessionStorage.removeItem(SCROLL_KEY);
