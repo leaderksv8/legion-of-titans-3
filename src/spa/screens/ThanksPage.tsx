@@ -172,7 +172,7 @@ export default function ThanksPage() {
               </div>
 
               <Link
-                to="/#heroes"
+                to="/"
                 className="shrink-0 inline-flex items-center gap-2 rounded-full border border-hairline px-4 py-2 text-[12px] tracking-luxe uppercase text-paper/90 hover:border-gold/50 hover:text-paper transition-colors"
                 aria-label={locale === "uk" ? "Закрити" : "Close"}
               >

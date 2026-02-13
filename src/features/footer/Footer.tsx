@@ -1,5 +1,6 @@
 import Container from "@/shared/ui/Container";
 import ScrollLink from "@/shared/ui/ScrollLink";
+import { Link } from "react-router-dom";
 import { useLocale } from "@/shared/lib/localeContext";
 import { branding } from "@/content/site";
 
@@ -58,6 +59,12 @@ export default function Footer() {
                     </li>
                   ))}
                 </ul>
+                
+                <div className="mt-4 pt-4 border-t border-hairline/30">
+                  <Link to="/admin" className="link-gold text-[14px] sm:text-sm md:text-[15px] opacity-70 hover:opacity-100 transition-opacity">
+                    {t.footerNavAdmin}
+                  </Link>
+                </div>
               </div>
             </div>
 
