@@ -50,8 +50,8 @@ export default function Header() {
       <header className="sticky top-0 z-50 bg-ink">
         <Container>
           <MotionDiv variants={fadeUp} initial="hidden" animate="show" className="flex h-16 items-center justify-between">
-            {/* Use absolute hash link so the logo works as "back to home" from sub-routes (e.g., /thanks). */}
-            <a href="/#home" className="inline-flex items-center gap-2 sm:gap-3 logo-link min-w-0 flex-1 sm:flex-none">
+            {/* Use ScrollLink so logo works correctly on GitHub Pages with basename */}
+            <ScrollLink href="/#home" className="inline-flex items-center gap-2 sm:gap-3 logo-link min-w-0 flex-1 sm:flex-none">
               <span className="flex h-14 sm:h-16 w-14 sm:w-16 items-center justify-center overflow-visible logo-wrap flex-shrink-0">
                 <img
                   src={withBase("/images/logo/logo%20white.svg?v=2")}
@@ -70,7 +70,7 @@ export default function Header() {
                   {branding_t.headerOrg} {branding_t.headerName}
                 </span>
               </span>
-            </a>
+            </ScrollLink>
 
             <nav className="hidden lg:flex items-center gap-6 lg:gap-7 text-[11px] sm:text-[12px] lg:text-[12px] uppercase tracking-luxe text-ash">
               {links.map((l) => (
